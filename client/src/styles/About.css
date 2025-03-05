@@ -1,0 +1,41 @@
+/* client/src/styles/About.css */
+.about-page {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .about-page h1 {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .about-section {
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .about-section h2 {
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-color);
+  }
+  
+  .about-list {
+    list-style: disc;
+    padding-left: var(--spacing-xl);
+  }
+  
+  .about-list li {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .feedback-section {
+    background-color: var(--light-gray);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+  }
+  
+  .feedback-section h2 {
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-color);
+  }
+  
+  .feedback-section p {
+    margin-bottom: var(--spacing-lg);
+  }

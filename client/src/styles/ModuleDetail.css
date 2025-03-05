@@ -1,0 +1,58 @@
+/* client/src/styles/ModuleDetail.css */
+.module-detail-page {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .module-nav {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--primary-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s;
+  }
+  
+  .back-button:hover {
+    background-color: var(--light-gray);
+    text-decoration: none;
+  }
+  
+  .module-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .module-icon-large {
+    color: var(--primary-color);
+    background-color: var(--light-gray);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .module-meta {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    color: var(--dark-gray);
+  }
+  
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .module-content {
+    margin-bottom: var(--spacing-xl);
+  }

@@ -1,0 +1,15 @@
+.module-section {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .section-title {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-color);
+  }
+  
+  .section-content {
+    line-height: 1.6;
+  }

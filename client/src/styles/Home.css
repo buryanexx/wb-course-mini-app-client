@@ -1,0 +1,108 @@
+/* client/src/styles/Home.css */
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+  
+  .hero-section {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .hero-section h1 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--dark-gray);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .hero-image {
+    max-width: 100%;
+    margin: 0 auto;
+    height: 200px;
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius-md);
+  }
+  
+  .course-overview {
+    padding: var(--spacing-lg);
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius-md);
+  }
+  
+  .course-overview h2 {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+  }
+  
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .feature-text h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--primary-color);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    font-weight: 500;
+    margin-top: var(--spacing-md);
+    transition: background-color 0.2s;
+  }
+  
+  .cta-button:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+  }
+  
+  .course-benefits {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .course-benefits h2 {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .benefits-list {
+    list-style: disc;
+    padding-left: var(--spacing-xl);
+  }
+  
+  .benefits-list li {
+    margin-bottom: var(--spacing-sm);
+  }
