@@ -1,5 +1,5 @@
 // client/src/App.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Menu from './components/Menu';
@@ -9,21 +9,18 @@ import ModulesList from './pages/ModulesList';
 import ModuleDetail from './pages/ModuleDetail';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
-// import TestPage from './pages/TestPage';
 import './styles/App.css';
 
 function App() {
-  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Инициализация Telegram WebApp
   useEffect(() => {
-    // Проверяем, что Telegram WebApp уже загружен
     if (window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.ready();
       tg.expand();
       
-      // Получаем цвета из темы Telegram
       const {
         bg_color,
         text_color,
@@ -33,7 +30,6 @@ function App() {
         button_text_color
       } = tg.themeParams;
       
-      // Устанавливаем CSS переменные
       document.documentElement.style.setProperty('--tg-theme-bg-color', bg_color || '#FFFFFF');
       document.documentElement.style.setProperty('--tg-theme-text-color', text_color || '#000000');
       document.documentElement.style.setProperty('--tg-theme-hint-color', hint_color || '#999999');
@@ -59,7 +55,6 @@ function App() {
             <Route path="/modules/:id" element={<ModuleDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/404" element={<NotFound />} />
-            // <Route path="/test" element={<TestPage />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
         </main>
