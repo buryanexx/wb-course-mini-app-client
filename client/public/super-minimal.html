@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Супер минимальный тест</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    
+    .header {
+      background-color: #0088cc;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">WB-курс</div>
+  
+  <div class="content">
+    <h1>Тестовая страница</h1>
+    <p>Если вы видите этот текст, значит страница загрузилась правильно.</p>
+    <p>Время загрузки: <span id="time"></span></p>
+    <button id="test-btn" style="background:#0088cc; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+      Нажми меня
+    </button>
+  </div>
+  
+  <div class="footer">
+    © 2025 WB-курс. Все права защищены.
+  </div>
+  
+  <script>
+    // Отображаем текущее время
+    document.getElementById('time').textContent = new Date().toLocaleTimeString();
+    
+    // Обработчик для кнопки
+    document.getElementById('test-btn').addEventListener('click', function() {
+      alert('Кнопка работает!');
+    });
+    
+    // Инициализация Telegram WebApp
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        
+        // Настройка главной кнопки Telegram
+        tg.MainButton.setText('ОТКРЫТЬ КУРС');
+        tg.MainButton.onClick(function() {
+          alert('Вы нажали на главную кнопку!');
+        });
+        tg.MainButton.show();
+      }
+    });
+  </script>
+</body>
+</html> 

@@ -15,40 +15,30 @@ function App() {
 
   // Инициализация Telegram WebApp
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-web-app.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-        
-        // Получаем цвета из темы Telegram
-        const {
-          bg_color,
-          text_color,
-          hint_color,
-          link_color,
-          button_color,
-          button_text_color
-        } = tg.themeParams;
-        
-        // Устанавливаем CSS переменные
-        document.documentElement.style.setProperty('--tg-theme-bg-color', bg_color || '#FFFFFF');
-        document.documentElement.style.setProperty('--tg-theme-text-color', text_color || '#000000');
-        document.documentElement.style.setProperty('--tg-theme-hint-color', hint_color || '#999999');
-        document.documentElement.style.setProperty('--tg-theme-link-color', link_color || '#0088cc');
-        document.documentElement.style.setProperty('--tg-theme-button-color', button_color || '#0088cc');
-        document.documentElement.style.setProperty('--tg-theme-button-text-color', button_text_color || '#FFFFFF');
-      }
-    };
-
-    return () => {
-      document.body.removeChild(script);
-    };
+    // Проверяем, что Telegram WebApp уже загружен
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+      
+      // Получаем цвета из темы Telegram
+      const {
+        bg_color,
+        text_color,
+        hint_color,
+        link_color,
+        button_color,
+        button_text_color
+      } = tg.themeParams;
+      
+      // Устанавливаем CSS переменные
+      document.documentElement.style.setProperty('--tg-theme-bg-color', bg_color || '#FFFFFF');
+      document.documentElement.style.setProperty('--tg-theme-text-color', text_color || '#000000');
+      document.documentElement.style.setProperty('--tg-theme-hint-color', hint_color || '#999999');
+      document.documentElement.style.setProperty('--tg-theme-link-color', link_color || '#0088cc');
+      document.documentElement.style.setProperty('--tg-theme-button-color', button_color || '#0088cc');
+      document.documentElement.style.setProperty('--tg-theme-button-text-color', button_text_color || '#FFFFFF');
+    }
   }, []);
 
   const toggleMenu = () => {

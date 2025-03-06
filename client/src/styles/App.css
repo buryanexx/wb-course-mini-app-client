@@ -4,13 +4,13 @@
   --secondary-color: #5dc1f0;
   --accent-color: #ff9500;
   
-  /* Цвета из темы Telegram */
-  --tg-theme-bg-color: var(--tg-theme-bg-color, #ffffff);
-  --tg-theme-text-color: var(--tg-theme-text-color, #000000);
-  --tg-theme-hint-color: var(--tg-theme-hint-color, #999999);
-  --tg-theme-link-color: var(--tg-theme-link-color, #0088cc);
-  --tg-theme-button-color: var(--tg-theme-button-color, #0088cc);
-  --tg-theme-button-text-color: var(--tg-theme-button-text-color, #ffffff);
+  /* Цвета из темы Telegram с дефолтными значениями */
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-text-color: #000000;
+  --tg-theme-hint-color: #999999;
+  --tg-theme-link-color: #0088cc;
+  --tg-theme-button-color: #0088cc;
+  --tg-theme-button-text-color: #ffffff;
   
   /* Адаптивные цвета */
   --bg-color: var(--tg-theme-bg-color);
