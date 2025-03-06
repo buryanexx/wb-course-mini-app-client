@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import ModulesList from './pages/ModulesList';
 import ModuleDetail from './pages/ModuleDetail';
 import About from './pages/About';
+import TestPage from './pages/TestPage';
 import './styles/App.css';
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/test" element={<TestPage />} />
             <Route path="/modules" element={<ModulesList />} />
             <Route path="/modules/:id" element={<ModuleDetail />} />
             <Route path="/about" element={<About />} />
