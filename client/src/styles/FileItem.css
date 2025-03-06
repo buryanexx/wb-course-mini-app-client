@@ -1,0 +1,111 @@
+.file-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+}
+
+.file-item:hover {
+  background-color: var(--background-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Иконка файла */
+.file-item-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-md);
+  color: var(--text-medium);
+  flex-shrink: 0;
+}
+
+.file-item-preview {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+/* Информация о файле */
+.file-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-item-name {
+  font-weight: var(--font-weight-medium);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-item-details {
+  display: flex;
+  gap: var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--text-light);
+}
+
+/* Действия */
+.file-item-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-left: var(--spacing-md);
+}
+
+.file-item-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-medium);
+  transition: all var(--transition-normal);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+}
+
+.file-item-action:hover {
+  background-color: var(--background-medium);
+  color: var(--text-dark);
+}
+
+.file-item-preview-btn:hover {
+  color: var(--info-color);
+}
+
+.file-item-download:hover {
+  color: var(--primary-color);
+}
+
+.file-item-delete:hover {
+  color: var(--error-color);
+}
+
+@media (max-width: 576px) {
+  .file-item {
+    flex-wrap: wrap;
+  }
+  
+  .file-item-info {
+    width: calc(100% - 60px);
+  }
+  
+  .file-item-actions {
+    width: 100%;
+    margin-left: 0;
+    margin-top: var(--spacing-sm);
+    justify-content: flex-end;
+  }
+} 

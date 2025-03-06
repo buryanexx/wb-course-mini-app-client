@@ -1,17 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import AdaptiveContainer from '../components/AdaptiveContainer';
+import { useNavigate } from 'react-router-dom';
+import { FileQuestion } from 'react-feather';
+import EmptyState from '../components/EmptyState';
 
 const NotFound = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="not-found-page">
-      <AdaptiveContainer>
-        <h1>Страница не найдена</h1>
-        <p>Извините, запрашиваемая страница не существует.</p>
-        <Link to="/" className="button">
-          Вернуться на главную
-        </Link>
-      </AdaptiveContainer>
+      <EmptyState
+        title="Страница не найдена"
+        description="Извините, запрашиваемая страница не существует или была перемещена."
+        icon={<FileQuestion size={64} />}
+        action={() => navigate('/')}
+        actionText="Вернуться на главную"
+        variant="info"
+        size="large"
+      />
     </div>
   );
 };

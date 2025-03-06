@@ -1,0 +1,104 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.rating-stars {
+  display: flex;
+}
+
+/* Размеры */
+.rating-small {
+  font-size: var(--font-size-xs);
+}
+
+.rating-medium {
+  font-size: var(--font-size-sm);
+}
+
+.rating-large {
+  font-size: var(--font-size-md);
+}
+
+/* Звезда */
+.rating-star {
+  color: var(--text-light);
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.rating-star:hover {
+  transform: scale(1.1);
+}
+
+.rating-star-filled {
+  color: var(--warning-color);
+}
+
+.rating-star-half {
+  position: relative;
+}
+
+.rating-star-half::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: var(--background-light);
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Интерактивные звезды */
+.rating-star-interactive {
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.rating-star-interactive:hover {
+  transform: scale(1.2);
+}
+
+/* Значение рейтинга */
+.rating-value {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-medium);
+}
+
+/* Размеры */
+.rating-small .rating-star {
+  margin-right: var(--spacing-xs);
+}
+
+.rating-medium .rating-star {
+  margin-right: var(--spacing-sm);
+}
+
+.rating-large .rating-star {
+  margin-right: var(--spacing-md);
+}
+
+.rating-small .rating-value {
+  font-size: var(--font-size-xs);
+}
+
+.rating-medium .rating-value {
+  font-size: var(--font-size-sm);
+}
+
+.rating-large .rating-value {
+  font-size: var(--font-size-md);
+}
+
+/* Только для чтения */
+.rating-readonly .rating-star {
+  cursor: default;
+}
+
+.rating-readonly .rating-star:hover {
+  transform: none;
+} 

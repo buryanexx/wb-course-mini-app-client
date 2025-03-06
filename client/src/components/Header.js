@@ -1,42 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Menu, Info, Book } from 'react-feather';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu as MenuIcon, X } from 'react-feather';
 import '../styles/Header.css';
 
-const Header = ({ toggleMenu }) => {
+const Header = ({ toggleMenu, isMenuOpen }) => {
+  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrolled]);
+  
   return (
-    <header className="header">
+    <header className={`header ${scrolled ? 'header-scrolled' : ''}`}>
       <div className="header-container">
-        <div className="header-left">
-          <button className="menu-button" onClick={toggleMenu} aria-label="Меню">
-            <Menu size={24} />
-          </button>
-          <Link to="/" className="logo">
-            <div className="logo-icon"></div>
-            <span>WB Решение</span>
-          </Link>
-        </div>
+        <Link to="/" className="logo">
+          <span className="logo-text">WB Решение</span>
+        </Link>
         
-        <div className="header-right">
-          <div className="header-actions">
-            <Link to="/modules" className="header-action">
-              <Book size={16} />
-              <span>Модули</span>
-            </Link>
-            <Link to="/about" className="header-action">
-              <Info size={16} />
-              <span>О нас</span>
-            </Link>
-          </div>
-        </div>
+        <nav className="desktop-nav">
+          <Link to="/" className={location.pathname === '/' ? 'nav-link active' : 'nav-link'}>
+            Главная
+          </Link>
+          <Link to="/modules" className={location.pathname.includes('/modules') ? 'nav-link active' : 'nav-link'}>
+            Модули
+          </Link>
+          <Link to="/about" className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}>
+            О курсе
+          </Link>
+        </nav>
+        
+        <button className="menu-toggle" onClick={toggleMenu} aria-label="Меню">
+          {isMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
+        </button>
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  toggleMenu: PropTypes.func.isRequired
 };
 
 export default Header;

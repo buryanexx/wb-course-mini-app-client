@@ -1,0 +1,169 @@
+.premium-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  gap: var(--spacing-xs);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: var(--letter-spacing-wide);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.premium-button:focus {
+  outline: none;
+}
+
+/* Варианты кнопок */
+.premium-button-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.premium-button-primary:hover {
+  background-color: var(--primary-color);
+  filter: brightness(1.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(138, 75, 175, 0.3);
+}
+
+.premium-button-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.premium-button-secondary:hover {
+  background-color: var(--secondary-color);
+  filter: brightness(1.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 126, 51, 0.3);
+}
+
+.premium-button-outlined {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.premium-button-outlined:hover {
+  background-color: rgba(138, 75, 175, 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(138, 75, 175, 0.15);
+}
+
+.premium-button-text {
+  background-color: transparent;
+  color: var(--primary-color);
+  box-shadow: none;
+}
+
+.premium-button-text:hover {
+  background-color: rgba(138, 75, 175, 0.05);
+  transform: translateY(-2px);
+}
+
+.premium-button-gradient {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(138, 75, 175, 0.2);
+}
+
+.premium-button-gradient:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(138, 75, 175, 0.3);
+}
+
+/* Размеры кнопок */
+.premium-button-small {
+  font-size: var(--font-size-xs);
+  padding: calc(var(--spacing-xs) - 2px) var(--spacing-md);
+  height: 32px;
+}
+
+.premium-button-medium {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  height: 40px;
+}
+
+.premium-button-large {
+  font-size: var(--font-size-md);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  height: 48px;
+}
+
+/* Полная ширина */
+.premium-button-full-width {
+  width: 100%;
+}
+
+/* Отключенное состояние */
+.premium-button-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Иконки */
+.premium-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.premium-button-icon-left {
+  margin-right: var(--spacing-xs);
+}
+
+.premium-button-icon-right {
+  margin-left: var(--spacing-xs);
+}
+
+/* Эффект блеска */
+.premium-button-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition: all 0.8s ease;
+  pointer-events: none;
+}
+
+.premium-button:hover .premium-button-shine {
+  left: 100%;
+}
+
+@media (max-width: 768px) {
+  .premium-button-small {
+    font-size: var(--font-size-xs);
+    padding: calc(var(--spacing-xs) - 4px) var(--spacing-sm);
+    height: 28px;
+  }
+  
+  .premium-button-medium {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-md);
+    height: 36px;
+  }
+  
+  .premium-button-large {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    height: 44px;
+  }
+} 

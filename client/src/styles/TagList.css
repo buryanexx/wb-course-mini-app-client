@@ -1,0 +1,8 @@
+.tag-list {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.tag-list-wrap {
+  flex-wrap: wrap;
+} 

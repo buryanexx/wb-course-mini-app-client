@@ -1,0 +1,44 @@
+.avatar-group {
+  display: flex;
+  align-items: center;
+}
+
+/* Перекрытие аватаров */
+.avatar-group-small > * {
+  margin-left: -8px;
+}
+
+.avatar-group-medium > * {
+  margin-left: -12px;
+}
+
+.avatar-group-large > * {
+  margin-left: -16px;
+}
+
+.avatar-group > *:first-child {
+  margin-left: 0;
+}
+
+/* Стили для счетчика дополнительных аватаров */
+.avatar-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-medium);
+  color: var(--text-medium);
+  font-weight: var(--font-weight-semibold);
+  border: 2px solid var(--background-light);
+}
+
+/* Эффект наведения */
+.avatar-group > * {
+  transition: transform var(--transition-normal);
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-group > *:hover {
+  transform: translateY(-4px);
+  z-index: 2;
+} 

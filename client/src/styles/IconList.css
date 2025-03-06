@@ -1,0 +1,114 @@
+.icon-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Отступы между элементами */
+.icon-list-gap-small > * {
+  margin-bottom: var(--spacing-sm);
+}
+
+.icon-list-gap-medium > * {
+  margin-bottom: var(--spacing-md);
+}
+
+.icon-list-gap-large > * {
+  margin-bottom: var(--spacing-lg);
+}
+
+.icon-list > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Разделители */
+.icon-list-dividers > * {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-md);
+}
+
+.icon-list-dividers > *:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Элемент списка */
+.icon-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+/* Иконка */
+.icon-list-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--background-medium);
+  color: var(--text-medium);
+  flex-shrink: 0;
+}
+
+/* Контент */
+.icon-list-content {
+  flex: 1;
+}
+
+.icon-list-title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-md);
+}
+
+.icon-list-description {
+  color: var(--text-medium);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Варианты */
+.icon-list-item-primary .icon-list-icon {
+  background-color: rgba(138, 75, 175, 0.1);
+  color: var(--primary-color);
+}
+
+.icon-list-item-secondary .icon-list-icon {
+  background-color: rgba(255, 126, 51, 0.1);
+  color: var(--secondary-color);
+}
+
+.icon-list-item-success .icon-list-icon {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success-color);
+}
+
+.icon-list-item-warning .icon-list-icon {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: var(--warning-color);
+}
+
+.icon-list-item-error .icon-list-icon {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--error-color);
+}
+
+.icon-list-item-info .icon-list-icon {
+  background-color: rgba(23, 162, 184, 0.1);
+  color: var(--info-color);
+}
+
+/* Кликабельный элемент */
+.icon-list-item-clickable {
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+}
+
+.icon-list-item-clickable:hover {
+  background-color: var(--background-medium);
+  transform: translateX(5px);
+} 

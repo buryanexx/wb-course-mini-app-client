@@ -1,0 +1,139 @@
+.upload-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Элемент загрузки */
+.upload-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  gap: var(--spacing-md);
+}
+
+/* Информация о файле */
+.upload-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.upload-item-name {
+  font-weight: var(--font-weight-medium);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.upload-item-size {
+  font-size: var(--font-size-xs);
+  color: var(--text-light);
+}
+
+/* Прогресс */
+.upload-item-progress {
+  flex: 2;
+  min-width: 100px;
+}
+
+/* Действия */
+.upload-item-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.upload-item-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-medium);
+  transition: all var(--transition-normal);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+}
+
+.upload-item-action:hover {
+  background-color: var(--background-medium);
+  color: var(--text-dark);
+}
+
+.upload-item-retry {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--primary-color);
+}
+
+.upload-item-retry:hover {
+  background-color: rgba(138, 75, 175, 0.1);
+}
+
+/* Статус */
+.upload-item-status-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+}
+
+.upload-item-completed .upload-item-status-icon {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.upload-item-error .upload-item-status-icon {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.upload-item-error {
+  font-size: var(--font-size-xs);
+  color: var(--error-color);
+  margin-top: var(--spacing-xs);
+}
+
+/* Варианты статуса */
+.upload-item-completed {
+  border-color: rgba(40, 167, 69, 0.3);
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+.upload-item-error {
+  border-color: rgba(220, 53, 69, 0.3);
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+.upload-item-paused {
+  border-color: rgba(255, 193, 7, 0.3);
+  background-color: rgba(255, 193, 7, 0.05);
+}
+
+@media (max-width: 768px) {
+  .upload-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .upload-item-info,
+  .upload-item-progress {
+    width: 100%;
+  }
+  
+  .upload-item-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: var(--spacing-sm);
+  }
+} 

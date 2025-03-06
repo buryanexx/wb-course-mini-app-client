@@ -1,0 +1,158 @@
+.animated-element {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition-property: transform, opacity;
+  transition-duration: var(--animation-duration, 0.5s);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--animation-delay, 0s);
+}
+
+.animated-element.visible {
+  opacity: 1;
+}
+
+/* Fade In */
+.fade-in {
+  opacity: 0;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
+/* Fade Up */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade Down */
+.fade-down {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.fade-down.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade Left */
+.fade-left {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.fade-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Fade Right */
+.fade-right {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Zoom In */
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.zoom-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Zoom Out */
+.zoom-out {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.zoom-out.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Flip X */
+.flip-x {
+  opacity: 0;
+  transform: rotateX(90deg);
+}
+
+.flip-x.visible {
+  opacity: 1;
+  transform: rotateX(0);
+}
+
+/* Flip Y */
+.flip-y {
+  opacity: 0;
+  transform: rotateY(90deg);
+}
+
+.flip-y.visible {
+  opacity: 1;
+  transform: rotateY(0);
+}
+
+/* Bounce */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce.visible {
+  animation-name: bounce;
+  animation-duration: var(--animation-duration, 1s);
+  animation-delay: var(--animation-delay, 0s);
+  animation-fill-mode: both;
+}
+
+/* Pulse */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse.visible {
+  animation-name: pulse;
+  animation-duration: var(--animation-duration, 1s);
+  animation-delay: var(--animation-delay, 0s);
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-element {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+} 

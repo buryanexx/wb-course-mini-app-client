@@ -1,0 +1,103 @@
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+}
+
+.progress-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-xs);
+}
+
+.progress-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+.progress-value {
+  font-size: var(--font-size-sm);
+  color: var(--text-light);
+}
+
+.progress-value-right {
+  margin-left: var(--spacing-md);
+}
+
+.progress-bar-container {
+  background-color: var(--background-medium);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  width: 100%;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+
+/* Варианты */
+.progress-bar-default {
+  background-color: var(--text-medium);
+}
+
+.progress-bar-primary {
+  background-color: var(--primary-color);
+}
+
+.progress-bar-secondary {
+  background-color: var(--secondary-color);
+}
+
+.progress-bar-success {
+  background-color: var(--success-color);
+}
+
+.progress-bar-warning {
+  background-color: var(--warning-color);
+}
+
+.progress-bar-error {
+  background-color: var(--error-color);
+}
+
+.progress-bar-info {
+  background-color: var(--info-color);
+}
+
+/* Полосатый прогресс */
+.progress-bar-striped {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+/* Анимированный прогресс */
+.progress-bar-animated {
+  animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+} 

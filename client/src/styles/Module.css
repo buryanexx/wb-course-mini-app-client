@@ -1,0 +1,294 @@
+.module-page {
+  padding-bottom: var(--spacing-xl);
+}
+
+/* Секция героя */
+.module-hero {
+  padding: var(--spacing-xxl) 0;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.module-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(33, 37, 41, 0.8), rgba(33, 37, 41, 0.95));
+  z-index: 1;
+}
+
+.module-hero > .adaptive-container {
+  position: relative;
+  z-index: 2;
+}
+
+.module-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: white;
+  text-decoration: none;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.module-back-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
+}
+
+.module-title {
+  font-size: var(--font-size-xxxl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  line-height: var(--line-height-tight);
+}
+
+.module-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.module-level {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: white;
+}
+
+.module-level-начальный {
+  background-color: var(--success-color);
+}
+
+.module-level-средний {
+  background-color: var(--warning-color);
+}
+
+.module-level-продвинутый {
+  background-color: var(--error-color);
+}
+
+.module-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Контент */
+.module-content {
+  padding: var(--spacing-xl) 0;
+}
+
+.module-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-xl);
+}
+
+/* Основная часть */
+.module-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.section-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-dark);
+}
+
+.module-description-content {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-medium);
+}
+
+.module-description-content p {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Прогресс */
+.module-progress {
+  background-color: var(--background-medium);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.module-progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.module-progress-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+}
+
+.module-progress-stats {
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+}
+
+.module-progress-completed {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-bold);
+}
+
+.module-progress-separator,
+.module-progress-total {
+  margin: 0 var(--spacing-xs);
+}
+
+.module-progress-text {
+  margin-left: var(--spacing-xs);
+  color: var(--text-light);
+}
+
+/* Список уроков */
+.lessons-list {
+  margin-top: var(--spacing-lg);
+}
+
+/* Боковая панель */
+.module-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + var(--spacing-md));
+  align-self: start;
+}
+
+.module-card {
+  background-color: var(--background-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.module-price {
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.module-actions {
+  margin-bottom: var(--spacing-lg);
+}
+
+.module-features {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-lg);
+}
+
+.module-features-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-dark);
+}
+
+.module-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.module-feature-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+}
+
+.module-feature-icon {
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+/* Состояния загрузки и ошибки */
+.module-loading,
+.module-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.module-error {
+  color: var(--error-color);
+}
+
+.module-back-link {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.module-back-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .module-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .module-sidebar {
+    position: static;
+    margin-top: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .module-hero {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .module-title {
+    font-size: var(--font-size-xxl);
+  }
+  
+  .module-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .section-title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .module-description-content {
+    font-size: var(--font-size-sm);
+  }
+  
+  .module-progress-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+} 

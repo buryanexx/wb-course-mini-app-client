@@ -1,67 +1,116 @@
 // client/src/App.js
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Menu from './components/Menu';
 import Footer from './components/Footer';
+import Menu from './components/Menu';
 import Home from './pages/Home';
-import ModulesList from './pages/ModulesList';
-import ModuleDetail from './pages/ModuleDetail';
+import Modules from './pages/Modules';
+import Module from './pages/Module';
+import Lesson from './pages/Lesson';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import { initTelegramApp } from './utils/telegram';
+import './styles/global.css';
 import './styles/App.css';
+import './styles/Typography.css';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import Toast from './components/Toast';
 
-function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  // Инициализация Telegram WebApp
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [toasts, setToasts] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+  
   useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      tg.expand();
-      
-      const {
-        bg_color,
-        text_color,
-        hint_color,
-        link_color,
-        button_color,
-        button_text_color
-      } = tg.themeParams;
-      
-      document.documentElement.style.setProperty('--tg-theme-bg-color', bg_color || '#FFFFFF');
-      document.documentElement.style.setProperty('--tg-theme-text-color', text_color || '#000000');
-      document.documentElement.style.setProperty('--tg-theme-hint-color', hint_color || '#999999');
-      document.documentElement.style.setProperty('--tg-theme-link-color', link_color || '#0088cc');
-      document.documentElement.style.setProperty('--tg-theme-button-color', button_color || '#0088cc');
-      document.documentElement.style.setProperty('--tg-theme-button-text-color', button_text_color || '#FFFFFF');
-    }
-  }, []);
-
+    initTelegramApp();
+    // Проверка предпочтений пользователя для темной темы
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDarkMode(localStorage.getItem('darkMode') === 'true' || prefersDarkMode);
+    
+    document.body.classList.toggle('dark-theme', darkMode);
+  }, [darkMode]);
+  
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setIsMenuOpen(!isMenuOpen);
   };
-
+  
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+  
+  // Блокировка прокрутки при открытом меню
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+  
+  const toggleDarkMode = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem('darkMode', newDarkMode);
+  };
+  
+  const addToast = (toast) => {
+    const id = Date.now();
+    setToasts([...toasts, { ...toast, id }]);
+    
+    // Автоматическое удаление через 5 секунд
+    setTimeout(() => {
+      removeToast(id);
+    }, toast.duration || 5000);
+  };
+  
+  const removeToast = (id) => {
+    setToasts(toasts.filter(toast => toast.id !== id));
+  };
+  
   return (
     <Router>
-      <div className="app">
-        <Header toggleMenu={toggleMenu} />
-        <Menu isOpen={menuOpen} toggleMenu={toggleMenu} />
-        <main className="main-content">
+      <div className={`app ${darkMode ? 'dark-theme' : ''}`}>
+        <Navbar 
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+          onDarkModeToggle={toggleDarkMode}
+          darkMode={darkMode}
+        />
+        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        
+        <main className="main-content" onClick={isMenuOpen ? closeMenu : undefined}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/modules" element={<ModulesList />} />
-            <Route path="/modules/:id" element={<ModuleDetail />} />
+            <Route path="/" element={<Home addToast={addToast} />} />
+            <Route path="/modules" element={<Modules />} />
+            <Route path="/modules/:moduleId" element={<Module />} />
+            <Route path="/modules/:moduleId/lessons/:lessonId" element={<Lesson />} />
             <Route path="/about" element={<About />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
+        
         <Footer />
+        
+        <div className="toast-container">
+          {toasts.map(toast => (
+            <Toast
+              key={toast.id}
+              variant={toast.variant}
+              title={toast.title}
+              message={toast.message}
+              onClose={() => removeToast(toast.id)}
+            />
+          ))}
+        </div>
       </div>
     </Router>
   );
-}
+};
 
 export default App;

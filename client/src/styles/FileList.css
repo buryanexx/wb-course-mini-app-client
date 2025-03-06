@@ -1,0 +1,14 @@
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.file-list-empty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-light);
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+} 

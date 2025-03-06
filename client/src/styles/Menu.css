@@ -35,131 +35,117 @@
   .menu {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 280px;
-    height: 100%;
+    height: 100vh;
     background-color: var(--background-light);
     box-shadow: var(--shadow-lg);
     z-index: 1000;
-    transform: translateX(-100%);
+    transform: translateX(100%);
     transition: transform var(--transition-normal);
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    border-left: 1px solid var(--border-color);
   }
   
-  .menu.open {
+  .menu-open {
     transform: translateX(0);
   }
   
   .menu-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: var(--spacing-md);
     border-bottom: 1px solid var(--border-color);
   }
   
-  .menu-logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 700;
-  }
-  
-  .menu-logo-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: var(--spacing-xs);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238a4baf'%3E%3Cpath d='M12 3L1 9l11 6 9-4.91V17c0 .55.45 1 1 1s1-.45 1-1v-6.7L12 3zm1 15c0 .55-.45 1-1 1s-1-.45-1-1v-3.72L3.5 9.5l9.5 5.23V18z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .close-button {
+  .menu-close {
     background: none;
     border: none;
     color: var(--text-dark);
     cursor: pointer;
     padding: var(--spacing-xs);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-sm);
-    transition: background-color var(--transition-fast);
   }
   
-  .close-button:hover {
+  .menu-close:hover {
     background-color: rgba(0, 0, 0, 0.05);
+    transform: rotate(90deg);
   }
   
-  .menu-content {
+  .menu-nav {
     flex: 1;
     padding: var(--spacing-md);
   }
   
-  .menu-nav {
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .menu-nav-title {
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    color: var(--text-light);
-    margin-bottom: var(--spacing-sm);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .menu-nav-list {
+  .menu-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  .menu-nav-item {
-    margin-bottom: var(--spacing-xs);
+  .menu-item {
+    margin-bottom: var(--spacing-sm);
   }
   
-  .menu-nav-link {
+  .menu-link {
     display: flex;
     align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
-    color: var(--text-dark);
-    text-decoration: none;
+    padding: var(--spacing-md);
     border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
+    color: var(--text-medium);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    font-weight: var(--font-weight-medium);
   }
   
-  .menu-nav-link:hover {
-    background-color: rgba(138, 75, 175, 0.1);
+  .menu-link:hover {
+    background-color: rgba(138, 75, 175, 0.05);
     color: var(--primary-color);
-    transform: translateY(-1px);
+    transform: translateX(5px);
   }
   
-  .menu-nav-link.active {
-    background-color: var(--primary-color);
-    color: white;
+  .menu-link.active {
+    background: linear-gradient(135deg, rgba(138, 75, 175, 0.1) 0%, rgba(138, 75, 175, 0.05) 100%);
+    color: var(--primary-color);
+    font-weight: var(--font-weight-semibold);
   }
   
-  .menu-nav-icon {
-    margin-right: var(--spacing-sm);
+  .menu-icon {
+    margin-right: var(--spacing-md);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: inherit;
+  }
+  
+  .menu-label {
+    flex: 1;
   }
   
   .menu-footer {
     padding: var(--spacing-md);
     border-top: 1px solid var(--border-color);
+    text-align: center;
+  }
+  
+  .menu-copyright {
     font-size: var(--font-size-xs);
     color: var(--text-light);
-    text-align: center;
+    margin: 0;
   }
   
   @media (max-width: 768px) {
     .menu {
       width: 250px;
+    }
+    
+    .menu-link {
+      padding: var(--spacing-sm) var(--spacing-md);
     }
   }

@@ -1,0 +1,160 @@
+.comment {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.comment-avatar {
+  flex-shrink: 0;
+}
+
+.comment-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Заголовок комментария */
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.comment-author {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+  margin-right: var(--spacing-sm);
+}
+
+.comment-date {
+  font-size: var(--font-size-xs);
+  color: var(--text-light);
+}
+
+.comment-more-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-more-btn:hover {
+  background-color: var(--background-medium);
+  color: var(--text-medium);
+}
+
+/* Текст комментария */
+.comment-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-sm);
+  word-break: break-word;
+}
+
+/* Действия */
+.comment-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.comment-action {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  color: var(--text-light);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
+}
+
+.comment-action:hover {
+  background-color: var(--background-medium);
+  color: var(--text-medium);
+}
+
+.comment-liked {
+  color: var(--error-color);
+}
+
+.comment-liked:hover {
+  color: var(--error-color);
+}
+
+/* Форма ответа */
+.comment-reply-form,
+.comment-edit-form {
+  margin-bottom: var(--spacing-md);
+}
+
+.comment-reply-textarea,
+.comment-edit-textarea {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  resize: vertical;
+  margin-bottom: var(--spacing-sm);
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+.comment-reply-textarea:focus,
+.comment-edit-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(138, 75, 175, 0.2);
+}
+
+.comment-reply-actions,
+.comment-edit-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+}
+
+/* Ответы на комментарий */
+.comment-replies {
+  margin-top: var(--spacing-md);
+  margin-left: var(--spacing-lg);
+  padding-left: var(--spacing-lg);
+  border-left: 2px solid var(--border-color);
+}
+
+.comment-replies .comment {
+  margin-bottom: var(--spacing-md);
+}
+
+.comment-replies .comment:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 576px) {
+  .comment {
+    gap: var(--spacing-sm);
+  }
+  
+  .comment-replies {
+    margin-left: 0;
+    padding-left: var(--spacing-md);
+  }
+  
+  .comment-actions {
+    flex-wrap: wrap;
+  }
+} 

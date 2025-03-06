@@ -1,0 +1,98 @@
+.price-tag {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* Текущая цена */
+.price-tag-current {
+  font-weight: var(--font-weight-bold);
+  display: flex;
+  align-items: baseline;
+}
+
+.price-tag-value {
+  margin-right: var(--spacing-xs);
+}
+
+.price-tag-currency {
+  font-size: 0.7em;
+  margin-right: var(--spacing-xs);
+}
+
+.price-tag-period {
+  font-size: 0.6em;
+  color: var(--text-medium);
+  font-weight: var(--font-weight-normal);
+}
+
+/* Старая цена */
+.price-tag-old {
+  font-size: 0.7em;
+  color: var(--text-light);
+  text-decoration: line-through;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Скидка */
+.price-tag-discount {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transform: translateY(-50%);
+}
+
+/* Размеры */
+.price-tag-small .price-tag-current {
+  font-size: var(--font-size-md);
+}
+
+.price-tag-medium .price-tag-current {
+  font-size: var(--font-size-lg);
+}
+
+.price-tag-large .price-tag-current {
+  font-size: var(--font-size-xl);
+}
+
+/* Варианты */
+.price-tag-default .price-tag-current {
+  color: var(--text-dark);
+}
+
+.price-tag-primary .price-tag-current {
+  color: var(--primary-color);
+}
+
+.price-tag-secondary .price-tag-current {
+  color: var(--secondary-color);
+}
+
+.price-tag-gradient .price-tag-current {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .price-tag-small .price-tag-current {
+    font-size: var(--font-size-sm);
+  }
+  
+  .price-tag-medium .price-tag-current {
+    font-size: var(--font-size-md);
+  }
+  
+  .price-tag-large .price-tag-current {
+    font-size: var(--font-size-lg);
+  }
+} 

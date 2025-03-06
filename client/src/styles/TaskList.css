@@ -1,0 +1,143 @@
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--spacing-md);
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
+  transition: all var(--transition-normal);
+}
+
+.task-item:hover {
+  background-color: var(--background-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Чекбокс */
+.task-checkbox {
+  margin-right: var(--spacing-md);
+  padding-top: 2px;
+}
+
+/* Контент */
+.task-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-title {
+  display: flex;
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-xs);
+  gap: var(--spacing-sm);
+}
+
+.task-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+  margin-bottom: var(--spacing-xs);
+}
+
+.task-due-date {
+  font-size: var(--font-size-xs);
+  color: var(--text-light);
+}
+
+/* Действия */
+.task-actions {
+  margin-left: var(--spacing-md);
+}
+
+.task-more-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-more-btn:hover {
+  background-color: var(--background-medium);
+  color: var(--text-medium);
+}
+
+/* Статусы */
+.task-completed .task-title {
+  text-decoration: line-through;
+  color: var(--text-light);
+}
+
+.task-pending {
+  border-left-color: var(--warning-color);
+}
+
+.task-completed {
+  border-left-color: var(--success-color);
+  opacity: 0.8;
+}
+
+.task-overdue {
+  border-left-color: var(--error-color);
+}
+
+.task-status-icon {
+  margin-left: auto;
+}
+
+.task-status-completed {
+  color: var(--success-color);
+}
+
+.task-status-pending {
+  color: var(--warning-color);
+}
+
+.task-status-overdue {
+  color: var(--error-color);
+}
+
+/* Приоритет */
+.task-priority-high {
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+/* Пустой список */
+.task-list-empty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-light);
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+}
+
+@media (max-width: 576px) {
+  .task-item {
+    flex-wrap: wrap;
+  }
+  
+  .task-content {
+    width: calc(100% - 60px);
+  }
+  
+  .task-actions {
+    width: 100%;
+    margin-left: 0;
+    margin-top: var(--spacing-sm);
+    display: flex;
+    justify-content: flex-end;
+  }
+} 

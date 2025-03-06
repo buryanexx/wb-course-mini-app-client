@@ -1,223 +1,65 @@
 /* client/src/styles/Home.css */
 .home-page {
-    padding-bottom: var(--spacing-xl);
-  }
-  
-  .hero-section {
-    text-align: center;
-    padding: var(--spacing-xl) 0 var(--spacing-xxl);
-    position: relative;
-  }
-  
-  .hero-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: var(--primary-gradient);
-    border-radius: 2px;
-  }
-  
-  .hero-title {
-    font-size: var(--font-size-xxxl);
-    font-weight: 700;
-    margin-bottom: var(--spacing-md);
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    letter-spacing: 0.5px;
-    line-height: 1.2;
-  }
-  
-  .hero-subtitle {
-    font-size: var(--font-size-xl);
-    color: var(--text-medium);
-    margin-bottom: var(--spacing-lg);
-    line-height: 1.4;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .course-description {
-    font-size: var(--font-size-md);
-    line-height: 1.7;
-    color: var(--text-dark);
-    margin-bottom: var(--spacing-xl);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    letter-spacing: 0.2px;
-  }
-  
-  .course-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
-  }
-  
-  .feature {
-    display: flex;
-    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: var(--spacing-lg);
-    background-color: var(--background-light);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    border: 1px solid var(--border-color);
   }
   
-  .feature:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+  .home-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
   }
   
-  .feature-icon {
-    margin-right: var(--spacing-md);
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md);
-    background-color: rgba(138, 75, 175, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  
-  .feature-content {
-    flex: 1;
-  }
-  
-  .feature-content h3 {
-    margin: 0 0 var(--spacing-xs) 0;
+  .home-subtitle {
     font-size: var(--font-size-lg);
-    color: var(--text-dark);
-    line-height: 1.3;
+    color: var(--text-medium);
+    margin-top: var(--spacing-sm);
   }
   
-  .feature-content p {
-    margin: 0;
-    font-size: var(--font-size-sm);
-    color: var(--text-light);
-    line-height: 1.6;
-  }
-  
-  .cta-section {
-    margin-top: var(--spacing-xl);
-  }
-  
-  .benefits-section {
-    padding: var(--spacing-xxl) 0;
-    background-color: var(--background-gray);
-    position: relative;
+  .home-stats {
+    margin-bottom: var(--spacing-xl);
   }
   
   .section-title {
-    text-align: center;
-    font-size: var(--font-size-xxl);
-    margin-bottom: var(--spacing-xl);
-    position: relative;
-    display: inline-block;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-lg);
     color: var(--text-dark);
-    line-height: 1.3;
-    letter-spacing: 0.5px;
   }
   
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-gradient);
-    border-radius: 3px;
-  }
-  
-  .benefits-grid {
+  .modules-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .home-cta {
     margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
   }
   
-  .benefit-card {
-    background-color: var(--background-light);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow-md);
+  .home-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
     text-align: center;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    border: 1px solid var(--border-color);
   }
   
-  .benefit-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+  .home-loading p {
+    margin-top: var(--spacing-md);
+    color: var(--text-medium);
   }
   
-  .benefit-icon {
-    font-size: 36px;
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .benefit-card h3 {
-    margin: 0 0 var(--spacing-sm) 0;
-    font-size: var(--font-size-lg);
-    color: var(--text-dark);
-    line-height: 1.3;
-  }
-  
-  .benefit-card p {
-    margin: 0;
-    font-size: var(--font-size-sm);
-    color: var(--text-light);
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-  }
-  
+  /* Адаптивность */
   @media (max-width: 768px) {
-    .hero-title {
-      font-size: var(--font-size-xxl);
-    }
-    
-    .hero-subtitle {
-      font-size: var(--font-size-lg);
-    }
-    
-    .course-description {
-      font-size: var(--font-size-sm);
-    }
-    
-    .feature {
+    .home-page {
       padding: var(--spacing-md);
     }
     
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-    }
-    
-    .feature-content h3 {
-      font-size: var(--font-size-md);
-    }
-    
-    .benefit-card {
-      padding: var(--spacing-md);
-    }
-    
-    .benefit-icon {
-      font-size: 30px;
-    }
-    
-    .section-title {
-      font-size: var(--font-size-xl);
+    .modules-grid {
+      grid-template-columns: 1fr;
     }
   }

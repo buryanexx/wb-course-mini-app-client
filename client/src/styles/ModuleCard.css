@@ -15,14 +15,7 @@
 }
 
 .module-card:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--primary-gradient);
-  opacity: 0.9;
+  display: none;
 }
 
 .module-card-link {
@@ -33,8 +26,9 @@
 }
 
 .module-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
+  border-color: rgba(138, 75, 175, 0.2);
 }
 
 .module-card-header {
@@ -46,7 +40,7 @@
 .module-icon {
   width: 48px;
   height: 48px;
-  background-color: rgba(0, 136, 204, 0.1);
+  background-color: rgba(138, 75, 175, 0.1);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -83,21 +77,29 @@
 }
 
 .module-more {
-  color: var(--primary-color);
-  font-size: var(--font-size-sm);
+  position: relative;
+  color: var(--secondary-color);
   font-weight: 500;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  transition: transform var(--transition-fast);
+  transition: all var(--transition-normal);
 }
 
 .module-more:after {
-  content: '→';
-  margin-left: 5px;
-  transition: transform var(--transition-fast);
+  display: none;
 }
 
-.module-card:hover .module-more:after {
+.module-card:hover .module-more {
+  transform: translateX(4px);
+  color: var(--secondary-color);
+}
+
+.module-more svg {
+  margin-left: var(--spacing-xs);
+  transition: transform var(--transition-normal);
+}
+
+.module-card:hover .module-more svg {
   transform: translateX(4px);
 }
 
@@ -105,8 +107,150 @@
   font-size: var(--font-size-xs);
   padding: 2px 8px;
   border-radius: 12px;
-  background-color: rgba(0, 136, 204, 0.1);
+  background-color: rgba(138, 75, 175, 0.1);
   color: var(--primary-color);
+}
+
+/* Изображение */
+.module-card-image-container {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 соотношение сторон */
+  overflow: hidden;
+}
+
+.module-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.module-card:hover .module-card-image {
+  transform: scale(1.05);
+}
+
+/* Уровень сложности */
+.module-card-level {
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: white;
+  z-index: 1;
+}
+
+.module-card-level-начальный {
+  background-color: var(--success-color);
+}
+
+.module-card-level-средний {
+  background-color: var(--warning-color);
+}
+
+.module-card-level-продвинутый {
+  background-color: var(--error-color);
+}
+
+/* Бейдж завершения */
+.module-card-completed-badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: white;
+  background-color: var(--success-color);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  z-index: 1;
+}
+
+/* Контент */
+.module-card-content {
+  padding: var(--spacing-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.module-card-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-dark);
+}
+
+.module-card-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+  margin-bottom: var(--spacing-md);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+
+/* Метаданные */
+.module-card-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.module-card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--text-medium);
+}
+
+/* Прогресс */
+.module-card-progress-container {
+  margin-bottom: var(--spacing-md);
+}
+
+.module-card-progress-bar {
+  height: 6px;
+  background-color: var(--border-color);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xs);
+}
+
+.module-card-progress-fill {
+  height: 100%;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-pill);
+}
+
+.module-card-progress-text {
+  font-size: var(--font-size-xs);
+  color: var(--text-medium);
+  text-align: right;
+}
+
+/* Завершенный модуль */
+.module-card-completed {
+  border-color: var(--success-color);
+}
+
+.module-card-completed::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--success-color);
+  z-index: 1;
 }
 
 /* Адаптивность для мобильных устройств */
@@ -115,11 +259,15 @@
     padding: var(--spacing-md);
   }
   
-  .module-title {
-    font-size: var(--font-size-md);
+  .module-card-content {
+    padding: var(--spacing-md);
   }
   
-  .module-description {
+  .module-card-title {
+    font-size: var(--font-size-sm);
+  }
+  
+  .module-card-description {
     font-size: var(--font-size-xs);
   }
   

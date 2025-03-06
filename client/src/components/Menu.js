@@ -1,79 +1,47 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { X, Home, Book, Info, Settings, HelpCircle } from 'react-feather';
+import { Link, useLocation } from 'react-router-dom';
+import { Home, Book, Info, X } from 'react-feather';
 import '../styles/Menu.css';
 
 const Menu = ({ isOpen, toggleMenu }) => {
+  const location = useLocation();
+  
+  const menuItems = [
+    { path: '/', label: 'Главная', icon: <Home size={20} /> },
+    { path: '/modules', label: 'Модули', icon: <Book size={20} /> },
+    { path: '/about', label: 'О курсе', icon: <Info size={20} /> }
+  ];
+  
   return (
-    <>
-      <div className={`menu-overlay ${isOpen ? 'open' : ''}`} onClick={toggleMenu}></div>
-      <nav className={`menu ${isOpen ? 'open' : ''}`}>
-        <div className="menu-header">
-          <div className="menu-logo">
-            <div className="menu-logo-icon"></div>
-            <span>WB Решение</span>
-          </div>
-          <button className="close-button" onClick={toggleMenu} aria-label="Закрыть меню">
-            <X size={24} />
-          </button>
-        </div>
-        
-        <div className="menu-content">
-          <div className="menu-nav">
-            <h3 className="menu-nav-title">Навигация</h3>
-            <ul className="menu-nav-list">
-              <li className="menu-nav-item">
-                <NavLink to="/" className="menu-nav-link" onClick={toggleMenu}>
-                  <span className="menu-nav-icon"><Home size={18} /></span>
-                  Главная
-                </NavLink>
-              </li>
-              <li className="menu-nav-item">
-                <NavLink to="/modules" className="menu-nav-link" onClick={toggleMenu}>
-                  <span className="menu-nav-icon"><Book size={18} /></span>
-                  Модули
-                </NavLink>
-              </li>
-              <li className="menu-nav-item">
-                <NavLink to="/about" className="menu-nav-link" onClick={toggleMenu}>
-                  <span className="menu-nav-icon"><Info size={18} /></span>
-                  О нас
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="menu-nav">
-            <h3 className="menu-nav-title">Поддержка</h3>
-            <ul className="menu-nav-list">
-              <li className="menu-nav-item">
-                <a href="#" className="menu-nav-link">
-                  <span className="menu-nav-icon"><HelpCircle size={18} /></span>
-                  Помощь
-                </a>
-              </li>
-              <li className="menu-nav-item">
-                <a href="#" className="menu-nav-link">
-                  <span className="menu-nav-icon"><Settings size={18} /></span>
-                  Настройки
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="menu-footer">
-          Версия 1.0.0
-        </div>
+    <div className={`menu ${isOpen ? 'menu-open' : ''}`}>
+      <div className="menu-header">
+        <button className="menu-close" onClick={toggleMenu}>
+          <X size={24} />
+        </button>
+      </div>
+      
+      <nav className="menu-nav">
+        <ul className="menu-list">
+          {menuItems.map((item) => (
+            <li key={item.path} className="menu-item">
+              <Link
+                to={item.path}
+                className={`menu-link ${location.pathname === item.path ? 'active' : ''}`}
+                onClick={toggleMenu}
+              >
+                <span className="menu-icon">{item.icon}</span>
+                <span className="menu-label">{item.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </nav>
-    </>
+      
+      <div className="menu-footer">
+        <p className="menu-copyright">© {new Date().getFullYear()} WB Решение</p>
+      </div>
+    </div>
   );
-};
-
-Menu.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired
 };
 
 export default Menu;
