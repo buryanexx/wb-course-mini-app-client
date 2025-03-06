@@ -109,8 +109,8 @@ export const markLessonAsViewed = async (moduleId, lessonId) => {
 };
 
 // Алиасы для обратной совместимости
-export const getModules = fetchModules;
-export const getModuleById = fetchModuleById;
-export const submitFeedback = sendFeedback;
+export { fetchModules as getModules };
+export { fetchModuleById as getModuleById };
+export { sendFeedback as submitFeedback };
 
 export default api;
