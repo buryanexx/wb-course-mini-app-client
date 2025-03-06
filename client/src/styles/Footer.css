@@ -1,26 +1,49 @@
 /* client/src/styles/Footer.css */
 .footer {
-    background-color: var(--light-gray);
-    padding: var(--spacing-md);
-    color: var(--dark-gray);
-    font-size: 0.875rem;
-  }
-  
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--spacing-sm);
+  background-color: var(--card-bg-color);
+  color: var(--card-text-color);
+  padding: 20px 0;
+  border-top: 1px solid var(--card-border-color);
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.copyright {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-link {
+  color: var(--link-color);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 0 var(--spacing-sm);
   }
   
   .footer-links {
-    display: flex;
-    gap: var(--spacing-md);
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  .footer-links a {
-    color: var(--dark-gray);
-  }
+}

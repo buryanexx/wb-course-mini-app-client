@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Telegram WebApp Test</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+      color: white;
+      background-color: #1e1e1e;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Тестовая страница Telegram WebApp</h1>
+  <p id="user-info">Загрузка информации о пользователе...</p>
+  <button id="main-button">Тестовая кнопка</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+      
+      // Отображение информации о пользователе
+      const userInfo = document.getElementById('user-info');
+      if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+        userInfo.textContent = `Привет, ${user.first_name}!`;
+      } else {
+        userInfo.textContent = 'Информация о пользователе недоступна';
+      }
+      
+      // Настройка главной кнопки
+      const mainButton = document.getElementById('main-button');
+      mainButton.addEventListener('click', function() {
+        alert('Кнопка нажата!');
+      });
+      
+      // Настройка кнопки Telegram
+      tg.MainButton.setText('ОТКРЫТЬ КУРС');
+      tg.MainButton.show();
+      tg.MainButton.onClick(function() {
+        alert('Главная кнопка Telegram нажата!');
+      });
+    });
+  </script>
+</body>
+</html> 

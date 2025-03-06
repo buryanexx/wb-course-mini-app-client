@@ -1,25 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/ModuleCard.css';
-import ModuleIcon from './ModuleIcon';
 
 const ModuleCard = ({ module }) => {
   return (
-    <div className="module-card">
-      <div className="module-card-header">
-        <div className="module-icon">
-          <ModuleIcon iconName={module.icon} />
+    <Link to={`/modules/${module.id}`} className="module-card-link">
+      <div className="module-card">
+        <div className="module-card-header">
+          <div className="module-icon">{module.icon}</div>
+          <h3 className="module-title">{module.title}</h3>
         </div>
-        <h3 className="module-title">{module.title}</h3>
+        <p className="module-description">{module.shortDescription}</p>
+        <div className="module-card-footer">
+          <span className="module-more">Подробнее →</span>
+        </div>
       </div>
-      <p className="module-description">{module.shortDescription}</p>
-      <div className="module-card-footer">
-        <Link to={`/modules/${module.id}`} className="more-button">
-          <span>Подробнее</span>
-          <span>→</span>
-        </Link>
-      </div>
-    </div>
+    </Link>
   );
 };
 

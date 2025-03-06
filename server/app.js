@@ -9,9 +9,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// Настройка CORS - упростим для начала
+// Настройка CORS для Telegram
 app.use(cors({
-  origin: '*', // Разрешаем всем
+  origin: ['https://web.telegram.org', 'https://telegram-web-app.js.org', '*'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));

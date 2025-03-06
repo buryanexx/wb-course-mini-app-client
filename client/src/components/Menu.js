@@ -1,45 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { X, Home, Book, Info } from 'react-feather';
 import '../styles/Menu.css';
 
 const Menu = ({ isOpen, toggleMenu }) => {
   return (
-    <div className={`menu-container ${isOpen ? 'open' : ''}`}>
-      <div className="menu-overlay" onClick={toggleMenu}></div>
-      <div className="menu">
+    <div className={`menu-overlay ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+      <div className="menu" onClick={(e) => e.stopPropagation()}>
         <div className="menu-header">
-          <h2>Меню</h2>
-          <button className="close-button" onClick={toggleMenu}>
-            <span>✕</span>
+          <h2 className="menu-title">Меню</h2>
+          <button className="close-button" onClick={toggleMenu} aria-label="Закрыть меню">
+            <X size={24} />
           </button>
         </div>
         <nav className="menu-nav">
-          <ul>
-            <li>
-              <Link to="/" onClick={toggleMenu}>
-                <span className="menu-icon">🏠</span>
-                <span>Главная</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/modules" onClick={toggleMenu}>
-                <span className="menu-icon">📦</span>
-                <span>Модули курса</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" onClick={toggleMenu}>
-                <span className="menu-icon">ℹ️</span>
-                <span>О проекте</span>
-              </Link>
-            </li>
-            <li>
-              <a href="https://t.me/username" target="_blank" rel="noopener noreferrer" onClick={toggleMenu}>
-                <span className="menu-icon">💬</span>
-                <span>Обратная связь</span>
-              </a>
-            </li>
-          </ul>
+          <Link to="/" className="menu-item" onClick={toggleMenu}>
+            <Home size={20} />
+            <span>Главная</span>
+          </Link>
+          <Link to="/modules" className="menu-item" onClick={toggleMenu}>
+            <Book size={20} />
+            <span>Модули курса</span>
+          </Link>
+          <Link to="/about" className="menu-item" onClick={toggleMenu}>
+            <Info size={20} />
+            <span>О проекте</span>
+          </Link>
         </nav>
       </div>
     </div>
