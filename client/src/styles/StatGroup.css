@@ -1,23 +1,23 @@
 .stat-group {
   display: grid;
-  width: 100%;
+  grid-template-columns: repeat(var(--columns), 1fr);
 }
 
 /* Количество колонок */
 .stat-group-columns-1 {
-  grid-template-columns: 1fr;
+  --columns: 1;
 }
 
 .stat-group-columns-2 {
-  grid-template-columns: repeat(2, 1fr);
+  --columns: 2;
 }
 
 .stat-group-columns-3 {
-  grid-template-columns: repeat(3, 1fr);
+  --columns: 3;
 }
 
 .stat-group-columns-4 {
-  grid-template-columns: repeat(4, 1fr);
+  --columns: 4;
 }
 
 /* Отступы */
@@ -36,20 +36,24 @@
 /* Адаптивность */
 @media (max-width: 1200px) {
   .stat-group-columns-4 {
-    grid-template-columns: repeat(2, 1fr);
+    --columns: 2;
   }
 }
 
 @media (max-width: 992px) {
-  .stat-group-columns-3 {
-    grid-template-columns: repeat(2, 1fr);
+  .stat-group-columns-4 {
+    --columns: 2;
   }
 }
 
 @media (max-width: 768px) {
-  .stat-group-columns-2,
-  .stat-group-columns-3,
-  .stat-group-columns-4 {
-    grid-template-columns: 1fr;
+  .stat-group-columns-3 {
+    --columns: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .stat-group {
+    --columns: 1 !important;
   }
 } 

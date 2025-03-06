@@ -3,15 +3,24 @@ import PropTypes from 'prop-types';
 import Stat from './Stat';
 import '../styles/StatGroup.css';
 
-const StatGroup = ({ 
-  stats, 
-  columns = 3,
+const StatGroup = ({
+  stats = [],
+  columns = 2,
   variant = 'default',
   size = 'medium',
-  gap = 'medium'
+  gap = 'medium',
+  className = '',
+  ...props
 }) => {
+  const statGroupClasses = `
+    stat-group 
+    stat-group-columns-${columns} 
+    stat-group-gap-${gap}
+    ${className}
+  `;
+
   return (
-    <div className={`stat-group stat-group-columns-${columns} stat-group-gap-${gap}`}>
+    <div className={statGroupClasses} {...props}>
       {stats.map((stat, index) => (
         <Stat
           key={index}
@@ -19,9 +28,9 @@ const StatGroup = ({
           value={stat.value}
           icon={stat.icon}
           change={stat.change}
-          changeType={stat.changeType || 'neutral'}
+          changeType={stat.changeType}
           variant={stat.variant || variant}
-          size={stat.size || size}
+          size={size}
         />
       ))}
     </div>
@@ -34,16 +43,16 @@ StatGroup.propTypes = {
       title: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       icon: PropTypes.node,
-      change: PropTypes.string,
+      change: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       changeType: PropTypes.oneOf(['positive', 'negative', 'neutral']),
-      variant: PropTypes.string,
-      size: PropTypes.string
+      variant: PropTypes.oneOf(['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info'])
     })
-  ).isRequired,
+  ),
   columns: PropTypes.oneOf([1, 2, 3, 4]),
-  variant: PropTypes.string,
-  size: PropTypes.string,
-  gap: PropTypes.oneOf(['small', 'medium', 'large'])
+  variant: PropTypes.oneOf(['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  gap: PropTypes.oneOf(['small', 'medium', 'large']),
+  className: PropTypes.string
 };
 
 export default StatGroup; 

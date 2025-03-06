@@ -1,0 +1,115 @@
+.card {
+  background-color: var(--background-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  border: 1px solid var(--border-color);
+}
+
+.card-clickable {
+  cursor: pointer;
+}
+
+.card-clickable:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-medium);
+  display: flex;
+  align-items: center;
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dark);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.card-description {
+  color: var(--text-medium);
+  margin: 0 0 var(--spacing-md) 0;
+  line-height: 1.5;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-footer {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Размеры */
+.card-small {
+  padding: var(--spacing-md);
+}
+
+.card-small .card-title {
+  font-size: var(--font-size-md);
+}
+
+.card-large {
+  padding: var(--spacing-xl);
+}
+
+.card-large .card-title {
+  font-size: var(--font-size-xl);
+}
+
+/* Варианты */
+.card-primary {
+  border-top: 4px solid var(--primary-color);
+}
+
+.card-primary .card-icon {
+  color: var(--primary-color);
+}
+
+.card-secondary {
+  border-top: 4px solid var(--secondary-color);
+}
+
+.card-secondary .card-icon {
+  color: var(--secondary-color);
+}
+
+.card-success {
+  border-top: 4px solid var(--success-color);
+}
+
+.card-success .card-icon {
+  color: var(--success-color);
+}
+
+.card-warning {
+  border-top: 4px solid var(--warning-color);
+}
+
+.card-warning .card-icon {
+  color: var(--warning-color);
+}
+
+.card-error {
+  border-top: 4px solid var(--error-color);
+}
+
+.card-error .card-icon {
+  color: var(--error-color);
+}
+
+.card-info {
+  border-top: 4px solid var(--info-color);
+}
+
+.card-info .card-icon {
+  color: var(--info-color);
+} 

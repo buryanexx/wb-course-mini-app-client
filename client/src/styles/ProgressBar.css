@@ -32,16 +32,45 @@
 }
 
 .progress-bar-container {
-  background-color: var(--background-medium);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
   width: 100%;
+  margin-bottom: var(--spacing-md);
+}
+
+.progress-bar-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+  margin-bottom: var(--spacing-xs);
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+  background-color: var(--background-medium);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   transition: width 0.3s ease;
+}
+
+.progress-bar-value {
+  font-size: var(--font-size-sm);
+  color: var(--text-medium);
+}
+
+.progress-bar-value-top {
+  margin-bottom: var(--spacing-xs);
+}
+
+.progress-bar-value-right {
+  margin-top: var(--spacing-xs);
+  text-align: right;
+}
+
+.progress-bar-value-bottom {
+  margin-top: var(--spacing-xs);
 }
 
 /* Варианты */
