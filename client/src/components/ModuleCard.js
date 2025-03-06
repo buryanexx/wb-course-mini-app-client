@@ -29,6 +29,7 @@ const ModuleCard = ({ module }) => {
         <p className="module-description">{module.shortDescription}</p>
         <div className="module-card-footer">
           <span className="module-more">Подробнее</span>
+          <span className="module-badge">Модуль {module.id}</span>
         </div>
       </div>
     </Link>

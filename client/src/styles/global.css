@@ -1,57 +1,152 @@
 :root {
-  --primary-color: #007BFF;
-  --background-color: #FFFFFF;
-  --light-gray: #F8F9FA;
-  --dark-gray: #343A40;
-  --text-color: #212529;
-  --border-color: #E9ECEF;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  /* Основная цветовая палитра */
+  --primary-color: #0088cc;
+  --primary-gradient: linear-gradient(90deg, #0088cc, #00a2ff);
+  --secondary-color: #ff6b00;
+  --accent-color: #ff9500;
   
-  /* Telegram Web App theme colors */
-  --tg-theme-bg-color: #FFFFFF;
-  --tg-theme-text-color: #000000;
+  /* Нейтральные цвета */
+  --text-dark: #1a1a1a;
+  --text-medium: #4a4a4a;
+  --text-light: #767676;
+  --background-light: #ffffff;
+  --background-gray: #f5f7fa;
+  --border-color: rgba(0, 0, 0, 0.08);
   
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
+  /* Функциональные цвета */
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --error-color: #dc3545;
+  --info-color: #17a2b8;
   
-  /* Border radius */
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
+  /* Размеры и отступы */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  
+  /* Радиусы скругления */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  /* Тени */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  
+  /* Анимации */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Шрифты */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-xxl: 24px;
+  --font-size-xxxl: 32px;
+  
+  /* Telegram WebApp переменные */
+  --tg-theme-bg-color: var(--background-light);
+  --tg-theme-text-color: var(--text-dark);
+  --tg-theme-hint-color: var(--text-light);
+  --tg-theme-link-color: var(--primary-color);
+  --tg-theme-button-color: var(--primary-color);
+  --tg-theme-button-text-color: #ffffff;
 }
 
-/* Базовые стили для всего приложения */
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-dark: #f5f5f5;
+    --text-medium: #d0d0d0;
+    --text-light: #a0a0a0;
+    --background-light: #1a1a1a;
+    --background-gray: #2a2a2a;
+    --border-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
+html, body {
+  height: 100%;
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--tg-theme-text-color, var(--text-dark));
+  background-color: var(--tg-theme-bg-color, var(--background-light));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-color, #f5f5f5);
-  color: var(--text-color, #333);
+}
+
+#root {
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: var(--font-size-xxxl);
+}
+
+h2 {
+  font-size: var(--font-size-xxl);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
 }
 
 a {
+  color: var(--tg-theme-link-color, var(--primary-color));
   text-decoration: none;
-  color: inherit;
+  transition: color var(--transition-fast);
 }
 
-button {
+a:hover {
+  color: var(--secondary-color);
+}
+
+button, .button {
   cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
   border: none;
-  outline: none;
+  background-color: var(--tg-theme-button-color, var(--primary-color));
+  color: var(--tg-theme-button-text-color, #ffffff);
+  transition: all var(--transition-fast);
 }
 
-ul, ol {
-  list-style: none;
+button:hover, .button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+button:active, .button:active {
+  transform: translateY(0);
 }
 
 img {
@@ -59,27 +154,79 @@ img {
   height: auto;
 }
 
-.loading {
+/* Утилиты */
+.text-center {
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.card {
+  background-color: var(--background-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.flex {
   display: flex;
-  justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.items-center {
   align-items: center;
-  height: 200px;
-  font-size: 1.2rem;
-  color: var(--primary-color);
 }
 
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  margin: var(--spacing-md) 0;
+.justify-between {
+  justify-content: space-between;
 }
 
-.success-message {
-  background-color: #d4edda;
-  color: #155724;
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  margin: var(--spacing-md) 0;
+.gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.gap-md {
+  gap: var(--spacing-md);
+}
+
+.gap-lg {
+  gap: var(--spacing-lg);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-normal);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--font-size-xxl);
+  }
+  
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  h3 {
+    font-size: var(--font-size-lg);
+  }
 }
