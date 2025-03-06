@@ -45,19 +45,17 @@ app.get('/direct-modules', (req, res) => {
 
 // Добавьте это перед строкой app.use('/api/modules', moduleRoutes);
 app.get('/api/modules-direct', (req, res) => {
+  // Устанавливаем заголовки
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Content-Type', 'application/json');
+  
   // Напрямую импортируем модули
   const modules = require('./data/modules.json');
   
-  // Возвращаем сокращенную версию модулей
-  const modulesList = modules.map(module => ({
-    id: module.id,
-    title: module.title,
-    shortDescription: module.shortDescription,
-    icon: module.icon
-  }));
-  
   // Возвращаем данные
-  return res.status(200).json(modulesList);
+  return res.status(200).json(modules);
 });
 
 // Стандартные routes
