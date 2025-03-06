@@ -1,6 +1,6 @@
 // client/src/App.js
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import ModulesList from './pages/ModulesList';
 import ModuleDetail from './pages/ModuleDetail';
 import About from './pages/About';
+import NotFound from './pages/NotFound';
 import './styles/App.css';
 
 function App() {
@@ -56,6 +57,8 @@ function App() {
             <Route path="/modules" element={<ModulesList />} />
             <Route path="/modules/:id" element={<ModuleDetail />} />
             <Route path="/about" element={<About />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
         </main>
         <Footer />

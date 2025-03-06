@@ -10,8 +10,23 @@ const app = express();
 app.use(express.json());
 
 // Настройка CORS для Telegram
+const allowedOrigins = [
+  'https://web.telegram.org', 
+  'https://telegram-web-app.js.org',
+  process.env.CLIENT_URL || 'http://localhost:3000'
+];
+
 app.use(cors({
-  origin: ['https://web.telegram.org', 'https://telegram-web-app.js.org', '*'],
+  origin: function(origin, callback) {
+    // Разрешаем запросы без origin (например, мобильные приложения)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+      callback(null, true);
+    } else {
+      callback(new Error('Не разрешено CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));

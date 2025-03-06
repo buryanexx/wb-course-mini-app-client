@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { X, Home, Book, Info } from 'react-feather';
 import '../styles/Menu.css';
@@ -30,6 +31,11 @@ const Menu = ({ isOpen, toggleMenu }) => {
       </div>
     </div>
   );
+};
+
+Menu.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired
 };
 
 export default Menu;

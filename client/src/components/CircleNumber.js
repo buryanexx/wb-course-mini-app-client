@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../styles/CircleNumber.css';
 
 const CircleNumber = ({ number }) => {
@@ -7,6 +8,13 @@ const CircleNumber = ({ number }) => {
       {number}
     </div>
   );
+};
+
+CircleNumber.propTypes = {
+  number: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired
 };
 
 export default CircleNumber; 

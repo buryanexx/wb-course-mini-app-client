@@ -1,6 +1,7 @@
 // client/src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+// Импортируем только основные стили
 import './styles/global.css';
 import './styles/App.css';
 import './styles/Header.css';
@@ -14,7 +15,8 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // Временно отключаем строгий режим
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>
+  // </React.StrictMode>
 );
