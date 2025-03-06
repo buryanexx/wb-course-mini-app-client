@@ -73,6 +73,11 @@ export const fetchLessonById = async (moduleId, lessonId) => {
 };
 
 /**
+ * Получение урока (алиас для fetchLessonById для обратной совместимости)
+ */
+export const getLesson = fetchLessonById;
+
+/**
  * Отправка обратной связи
  * @param {Object} feedbackData Данные обратной связи
  * @returns {Promise<Object>} Результат отправки
@@ -102,5 +107,10 @@ export const markLessonAsViewed = async (moduleId, lessonId) => {
     throw error;
   }
 };
+
+// Алиасы для обратной совместимости
+export const getModules = fetchModules;
+export const getModuleById = fetchModuleById;
+export const submitFeedback = sendFeedback;
 
 export default api;

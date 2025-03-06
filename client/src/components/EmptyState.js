@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import '../styles/EmptyState.css';
 
-const EmptyState = ({ 
-  title, 
+const EmptyState = ({
+  title,
   description,
   icon,
   action,
   actionText,
-  variant = 'default',
-  size = 'medium'
+  actionVariant = 'primary',
+  className = '',
+  ...props
 }) => {
+  const emptyStateClasses = `
+    empty-state 
+    ${className}
+  `;
+
   return (
-    <div className={`empty-state empty-state-${variant} empty-state-${size}`}>
-      {icon && (
-        <div className="empty-state-icon">
-          {icon}
-        </div>
-      )}
+    <div className={emptyStateClasses} {...props}>
+      {icon && <div className="empty-state-icon">{icon}</div>}
       
       <div className="empty-state-content">
         {title && <h3 className="empty-state-title">{title}</h3>}
@@ -28,9 +30,8 @@ const EmptyState = ({
       {action && actionText && (
         <div className="empty-state-action">
           <Button 
-            variant="primary" 
+            variant={actionVariant} 
             onClick={action}
-            size={size === 'small' ? 'small' : 'medium'}
           >
             {actionText}
           </Button>
@@ -41,13 +42,13 @@ const EmptyState = ({
 };
 
 EmptyState.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
+  title: PropTypes.node,
+  description: PropTypes.node,
   icon: PropTypes.node,
   action: PropTypes.func,
   actionText: PropTypes.string,
-  variant: PropTypes.oneOf(['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info']),
-  size: PropTypes.oneOf(['small', 'medium', 'large'])
+  actionVariant: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default EmptyState; 
