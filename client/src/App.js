@@ -9,6 +9,7 @@ import ModulesList from './pages/ModulesList';
 import ModuleDetail from './pages/ModuleDetail';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+// import TestPage from './pages/TestPage';
 import './styles/App.css';
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
             <Route path="/modules/:id" element={<ModuleDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/404" element={<NotFound />} />
+            // <Route path="/test" element={<TestPage />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
         </main>
