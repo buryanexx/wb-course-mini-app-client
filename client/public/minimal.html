@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Минимальный тест</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    
+    .box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      color: #0088cc;
+    }
+    
+    button {
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Минимальный тест</h1>
+    <p>Если вы видите этот текст, базовый HTML работает.</p>
+    <p id="timestamp">Время загрузки: </p>
+    <button id="test-btn">Нажми меня</button>
+  </div>
+  
+  <script>
+    // Простой скрипт для проверки
+    document.getElementById('timestamp').textContent += new Date().toLocaleTimeString();
+    document.getElementById('test-btn').addEventListener('click', function() {
+      alert('Кнопка работает!');
+    });
+    
+    // Инициализация Telegram WebApp
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+    }
+  </script>
+</body>
+</html> 
