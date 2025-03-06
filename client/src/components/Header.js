@@ -12,7 +12,7 @@ const Header = ({ toggleMenu }) => {
           <Menu size={24} />
         </button>
         <Link to="/" className="logo">
-          WB-курс
+          WB Решение
         </Link>
       </div>
     </header>

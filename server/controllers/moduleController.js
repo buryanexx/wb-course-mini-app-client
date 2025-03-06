@@ -10,12 +10,12 @@ const isValidId = (id) => {
 // @access  Public
 const getModules = (req, res) => {
   try {
-    // Возвращаем сокращенную версию модулей
+    // Возвращаем сокращенную версию модулей с иконками
     const modulesList = modules.map(module => ({
       id: module.id,
       title: module.title,
       shortDescription: module.shortDescription,
-      icon: module.icon
+      icon: module.icon || '📊' // Добавляем дефолтную иконку, если отсутствует
     }));
     
     // Используем return для явного завершения функции

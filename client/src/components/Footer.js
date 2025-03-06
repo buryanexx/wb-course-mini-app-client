@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <p className="copyright">© {currentYear} WB-курс. Все права защищены.</p>
+        <p className="copyright">© {currentYear} WB Решение. Все права защищены.</p>
         <div className="footer-links">
           <a href="#" className="footer-link">Политика конфиденциальности</a>
           <a href="#" className="footer-link">Условия использования</a>
