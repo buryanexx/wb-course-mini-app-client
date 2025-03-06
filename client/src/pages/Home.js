@@ -24,7 +24,7 @@ const Home = () => {
           <div className="course-features">
             <div className="feature">
               <div className="feature-icon">
-                <BookOpen size={24} color="#0088cc" />
+                <BookOpen size={24} color="#8a4baf" />
               </div>
               <div className="feature-content">
                 <h3>8 Модулей</h3>
@@ -34,7 +34,7 @@ const Home = () => {
             
             <div className="feature">
               <div className="feature-icon">
-                <Award size={24} color="#0088cc" />
+                <Award size={24} color="#8a4baf" />
               </div>
               <div className="feature-content">
                 <h3>48 Уроков</h3>
@@ -44,7 +44,7 @@ const Home = () => {
             
             <div className="feature">
               <div className="feature-icon">
-                <Clock size={24} color="#0088cc" />
+                <Clock size={24} color="#8a4baf" />
               </div>
               <div className="feature-content">
                 <h3>16 Часов</h3>

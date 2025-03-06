@@ -1,16 +1,17 @@
 :root {
-  /* Основная цветовая палитра */
-  --primary-color: #0088cc;
-  --primary-gradient: linear-gradient(90deg, #0088cc, #00a2ff);
-  --secondary-color: #ff6b00;
+  /* Обновленная цветовая палитра на основе логотипа */
+  --primary-color: #8a4baf; /* Фиолетовый */
+  --primary-gradient: linear-gradient(90deg, #8a4baf, #a56cc1);
+  --secondary-color: #ff7e33; /* Оранжевый */
+  --secondary-gradient: linear-gradient(90deg, #ff7e33, #ffaa66);
   --accent-color: #ff9500;
   
   /* Нейтральные цвета */
-  --text-dark: #1a1a1a;
+  --text-dark: #2d2d2d;
   --text-medium: #4a4a4a;
   --text-light: #767676;
   --background-light: #ffffff;
-  --background-gray: #f5f7fa;
+  --background-gray: #f8f9fc;
   --border-color: rgba(0, 0, 0, 0.08);
   
   /* Функциональные цвета */
