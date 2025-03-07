@@ -9,15 +9,16 @@ import '../styles/About.css';
 const About = () => {
   return (
     <div className="about-page">
-      <section className="about-header">
-        <AdaptiveContainer>
-          <AnimatedElement animation="fade-up">
-            <h1 className="about-title">О курсе</h1>
-            <p className="about-subtitle">
-              Курс по выходу на Wildberries: от нуля до прибыли в 300 000 рублей
-            </p>
-          </AnimatedElement>
-        </AdaptiveContainer>
+      <section className="about-hero">
+        <div className="about-hero-content">
+          <h1>О нашем курсе</h1>
+          <p>
+            WB Решение — это комплексная программа обучения, которая поможет вам освоить все аспекты работы с маркетплейсом Wildberries. Наш курс разработан экспертами с многолетним опытом и фокусируется на эффективных стратегиях, которые приносят реальные результаты.
+          </p>
+          <p>
+            Мы не просто учим теории — мы даем практические инструменты и проверенные методики, которые помогут вам построить прибыльный бизнес на Wildberries.
+          </p>
+        </div>
       </section>
       
       <section className="about-description">

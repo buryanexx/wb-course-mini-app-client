@@ -92,6 +92,9 @@ const Home = ({ addToast }) => {
         <AdaptiveContainer>
           <AnimatedElement animation="fade-up">
             <h2 className="section-title">Почему наш курс?</h2>
+            <p className="section-description">
+              Мы предлагаем эффективный подход к обучению работе с Wildberries, основанный на практическом опыте успешных продавцов.
+            </p>
             
             <div className="features-grid">
               <div className="feature-card">

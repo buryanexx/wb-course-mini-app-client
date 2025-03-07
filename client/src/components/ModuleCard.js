@@ -4,7 +4,7 @@ import { Clock, Users, BookOpen } from 'react-feather';
 import ProgressIndicator from './ProgressIndicator';
 import '../styles/ModuleCard.css';
 
-const ModuleCard = ({ module }) => {
+const ModuleCard = ({ module, variant = 'default' }) => {
   const { id, title, description, image, level, duration, studentsCount, progress } = module;
   
   // Определение класса для уровня сложности
@@ -21,20 +21,26 @@ const ModuleCard = ({ module }) => {
     }
   };
   
+  // Определяем уровень сложности для отображения метки
+  const getLevelBadge = () => {
+    if (id === 1) return "Начальный";
+    if (id === 2) return "Средний";
+    if (id === 3) return "Продвинутый";
+    return null;
+  };
+  
+  const levelBadge = getLevelBadge();
+  
   return (
-    <div className="module-card">
-      <div className="module-card-image-container">
-        <img 
-          src={image} 
-          alt={title} 
-          className="module-card-image" 
-          loading="lazy"
-        />
-        <div className={`module-card-level ${getLevelClass()}`}>
-          {level}
-        </div>
+    <Link to={`/modules/${id}`} className={`module-card ${variant}`}>
+      <div 
+        className="module-card-image" 
+        style={{ backgroundImage: `url(${image})` }}
+      >
+        {levelBadge && (
+          <div className="module-level-badge">{levelBadge}</div>
+        )}
       </div>
-      
       <div className="module-card-content">
         <h3 className="module-card-title">{title}</h3>
         <p className="module-card-description">{description}</p>
@@ -56,13 +62,8 @@ const ModuleCard = ({ module }) => {
             <span className="module-card-progress-text">{progress}% завершено</span>
           </div>
         )}
-        
-        <Link to={`/modules/${id}`} className="module-card-link">
-          <BookOpen size={16} />
-          <span>Перейти к модулю</span>
-        </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 

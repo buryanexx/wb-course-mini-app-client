@@ -1,1 +1,26 @@
- 
+.module-progress-bar-container {
+  height: 8px;
+  background-color: var(--color-background-light);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-top: var(--spacing-sm);
+}
+
+.module-progress-bar {
+  height: 100%;
+  background-color: var(--color-success);
+  border-radius: var(--radius-pill);
+  position: relative;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-percentage {
+  position: absolute;
+  right: 8px;
+  font-size: var(--font-size-xs);
+  color: white;
+  font-weight: var(--font-weight-medium);
+} 

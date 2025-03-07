@@ -347,6 +347,7 @@
   
   /* Добавить стили для карусели */
   .home-featured {
+    margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-xl);
   }
   
@@ -357,17 +358,22 @@
     overflow: hidden;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
+    transition: transform var(--transition-fast);
+  }
+  
+  .featured-item:hover {
+    transform: translateY(-4px);
   }
   
   .featured-image {
-    height: 200px;
+    height: 180px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
   
   .featured-content {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     background-color: var(--color-surface);
     flex: 1;
   }

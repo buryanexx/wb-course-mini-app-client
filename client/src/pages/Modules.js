@@ -119,6 +119,13 @@ const Modules = ({ addToast }) => {
 
   return (
     <div className="modules-page">
+      <div className="page-header">
+        <h1 className="page-title">Обучающие модули</h1>
+        <p className="page-description">
+          Структурированные материалы для эффективного обучения работе с Wildberries
+        </p>
+      </div>
+      
       <section className="modules-header">
         <AdaptiveContainer>
           <AnimatedElement animation="fade-up">

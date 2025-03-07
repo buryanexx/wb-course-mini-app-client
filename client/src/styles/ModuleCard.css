@@ -273,3 +273,16 @@
     padding-top: var(--spacing-sm);
   }
 }
+
+/* Добавление стилей для меток уровня сложности */
+.module-level-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
