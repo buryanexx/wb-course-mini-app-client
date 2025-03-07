@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Book, TrendingUp, Award } from 'react-feather';
+import { ArrowLeft, BookOpen, Award, TrendingUp } from 'react-feather';
 import AdaptiveContainer from '../components/AdaptiveContainer';
 import AnimatedElement from '../components/AnimatedElement';
-import { fetchKnowledgeCategories } from '../utils/api';
+import CategoryCard from '../components/CategoryCard';
+import Skeleton from '../components/Skeleton';
 import '../styles/KnowledgeBase.css';
+import { getKnowledgeCategories } from '../utils/api';
 
 const KnowledgeBase = ({ addToast }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    const loadCategories = async () => {
+    const fetchCategories = async () => {
       try {
         setLoading(true);
-        const data = await fetchKnowledgeCategories();
+        const data = await getKnowledgeCategories();
         setCategories(data);
       } catch (error) {
-        console.error('Error loading knowledge categories:', error);
+        console.error('Error fetching categories:', error);
         addToast({
           variant: 'error',
           title: 'Ошибка',
@@ -28,56 +30,57 @@ const KnowledgeBase = ({ addToast }) => {
       }
     };
     
-    loadCategories();
+    fetchCategories();
   }, [addToast]);
   
-  const getCategoryIcon = (iconName) => {
+  const getIconComponent = (iconName) => {
     switch (iconName) {
       case 'book-open':
-        return <Book size={32} />;
-      case 'trending-up':
-        return <TrendingUp size={32} />;
+        return <BookOpen size={24} />;
       case 'award':
-        return <Award size={32} />;
+        return <Award size={24} />;
+      case 'trending-up':
+        return <TrendingUp size={24} />;
       default:
-        return <Book size={32} />;
+        return <BookOpen size={24} />;
     }
   };
   
   return (
     <div className="knowledge-base-page">
       <AdaptiveContainer>
-        <AnimatedElement animation="fade-up">
-          <h1 className="page-title">База знаний Wildberries</h1>
+        <div className="page-header">
+          <Link to="/" className="back-link">
+            <ArrowLeft size={20} />
+            <span>Назад</span>
+          </Link>
+          <h1 className="page-title">База знаний</h1>
           <p className="page-description">
-            Выберите уровень сложности, соответствующий вашему опыту работы с маркетплейсом
+            Полезные материалы и статьи о работе с маркетплейсом Wildberries
           </p>
-          
+        </div>
+        
+        <div className="categories-grid">
           {loading ? (
-            <div className="loading-container">
-              <div className="loader"></div>
-              <p className="loading-text">Загрузка категорий...</p>
-            </div>
+            Array(3).fill().map((_, index) => (
+              <div key={index} className="category-skeleton">
+                <Skeleton height={200} />
+              </div>
+            ))
           ) : (
-            <div className="categories-grid">
-              {categories.map((category, index) => (
-                <AnimatedElement 
-                  key={category.id} 
-                  animation="fade-up" 
-                  delay={index * 0.1}
-                >
-                  <Link to={`/knowledge/${category.id}`} className="category-card">
-                    <div className="category-icon" style={{ backgroundColor: `${category.color}20`, color: category.color }}>
-                      {getCategoryIcon(category.icon)}
-                    </div>
-                    <h2 className="category-title">{category.title}</h2>
-                    <p className="category-description">{category.description}</p>
-                  </Link>
-                </AnimatedElement>
-              ))}
-            </div>
+            categories.map(category => (
+              <AnimatedElement key={category.id} animation="fade-up">
+                <CategoryCard
+                  title={category.title}
+                  description={category.description}
+                  icon={getIconComponent(category.icon)}
+                  color={category.color}
+                  to={`/knowledge/${category.id}`}
+                />
+              </AnimatedElement>
+            ))
           )}
-        </AnimatedElement>
+        </div>
       </AdaptiveContainer>
     </div>
   );

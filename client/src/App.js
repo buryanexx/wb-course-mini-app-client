@@ -20,7 +20,6 @@ import './styles/global.css';
 import './styles/App.css';
 import './styles/Typography.css';
 import Toast from './components/Toast';
-import ConnectionStatus from './components/ConnectionStatus';
 
 const App = () => {
   const [toasts, setToasts] = useState([]);
@@ -104,8 +103,6 @@ const App = () => {
             />
           ))}
         </div>
-        
-        <ConnectionStatus />
       </div>
     </Router>
   );
