@@ -1,34 +1,129 @@
 .module-card {
-  background-color: var(--background-light);
-  color: var(--text-dark);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-md);
-  transition: all var(--transition-normal);
-  height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-}
-
-.module-card:before {
-  display: none;
-}
-
-.module-card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
   height: 100%;
 }
 
 .module-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(138, 75, 175, 0.2);
+  box-shadow: var(--shadow-md);
+}
+
+.module-card-image-container {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 соотношение сторон */
+  overflow: hidden;
+}
+
+.module-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.module-card:hover .module-card-image {
+  transform: scale(1.05);
+}
+
+.module-card-level {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
+}
+
+.level-beginner {
+  background-color: rgba(40, 167, 69, 0.9);
+  color: white;
+}
+
+.level-intermediate {
+  background-color: rgba(255, 193, 7, 0.9);
+  color: #212529;
+}
+
+.level-advanced {
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+}
+
+.module-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--spacing-lg);
+}
+
+.module-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-primary);
+}
+
+.module-card-description {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+  flex: 1;
+}
+
+.module-card-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.module-card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.module-card-progress {
+  margin-bottom: var(--spacing-md);
+}
+
+.module-card-progress-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+.module-card-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+  text-align: center;
+  margin-top: auto;
+}
+
+.module-card-link:hover {
+  background-color: var(--color-primary-dark);
+  color: white;
 }
 
 .module-card-header {
@@ -57,14 +152,6 @@
   margin: 0;
   line-height: 1.3;
   color: var(--text-dark);
-}
-
-.module-description {
-  font-size: var(--font-size-sm);
-  line-height: 1.5;
-  color: var(--text-light);
-  flex-grow: 1;
-  margin-bottom: var(--spacing-md);
 }
 
 .module-card-footer {
@@ -111,40 +198,7 @@
   color: var(--primary-color);
 }
 
-/* Изображение */
-.module-card-image-container {
-  position: relative;
-  padding-top: 56.25%; /* 16:9 соотношение сторон */
-  overflow: hidden;
-}
-
-.module-card-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-normal);
-}
-
-.module-card:hover .module-card-image {
-  transform: scale(1.05);
-}
-
 /* Уровень сложности */
-.module-card-level {
-  position: absolute;
-  top: var(--spacing-sm);
-  left: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: white;
-  z-index: 1;
-}
-
 .module-card-level-начальный {
   background-color: var(--success-color);
 }
@@ -172,69 +226,6 @@
   align-items: center;
   gap: var(--spacing-xs);
   z-index: 1;
-}
-
-/* Контент */
-.module-card-content {
-  padding: var(--spacing-lg);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.module-card-title {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-sm);
-  color: var(--text-dark);
-}
-
-.module-card-description {
-  font-size: var(--font-size-sm);
-  color: var(--text-medium);
-  margin-bottom: var(--spacing-md);
-  line-height: var(--line-height-relaxed);
-  flex: 1;
-}
-
-/* Метаданные */
-.module-card-meta {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-}
-
-.module-card-meta-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  font-size: var(--font-size-xs);
-  color: var(--text-medium);
-}
-
-/* Прогресс */
-.module-card-progress-container {
-  margin-bottom: var(--spacing-md);
-}
-
-.module-card-progress-bar {
-  height: 6px;
-  background-color: var(--border-color);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-  margin-bottom: var(--spacing-xs);
-}
-
-.module-card-progress-fill {
-  height: 100%;
-  background: var(--primary-gradient);
-  border-radius: var(--radius-pill);
-}
-
-.module-card-progress-text {
-  font-size: var(--font-size-xs);
-  color: var(--text-medium);
-  text-align: right;
 }
 
 /* Завершенный модуль */

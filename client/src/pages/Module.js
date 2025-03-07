@@ -3,15 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Book, Clock, Award, Users, Check } from 'react-feather';
 import AdaptiveContainer from '../components/AdaptiveContainer';
 import LessonCard from '../components/LessonCard';
-import PremiumButton from '../components/PremiumButton';
-import PriceTag from '../components/PriceTag';
 import AnimatedElement from '../components/AnimatedElement';
 import ProgressIndicator from '../components/ProgressIndicator';
+import Button from '../components/Button';
 import '../styles/Module.css';
 import { getModule, getLessons } from '../utils/api';
-import Button from '../components/Button';
 
-const Module = ({ showToast }) => {
+const Module = ({ addToast }) => {
   const { moduleId } = useParams();
   const [module, setModule] = useState(null);
   const [lessons, setLessons] = useState([]);
@@ -31,14 +29,18 @@ const Module = ({ showToast }) => {
       } catch (err) {
         console.error('Error fetching module:', err);
         setError('Не удалось загрузить модуль. Пожалуйста, попробуйте позже.');
-        showToast && showToast('Ошибка при загрузке модуля', 'error');
+        addToast({
+          variant: 'error',
+          title: 'Ошибка',
+          message: 'Не удалось загрузить модуль'
+        });
       } finally {
         setLoading(false);
       }
     };
     
     fetchModuleData();
-  }, [moduleId, showToast]);
+  }, [moduleId, addToast]);
   
   if (loading) {
     return (
@@ -62,73 +64,67 @@ const Module = ({ showToast }) => {
   }
   
   const completedLessons = lessons.filter(lesson => lesson.isCompleted).length;
-  const progress = Math.round((completedLessons / lessons.length) * 100) || 0;
+  const progress = lessons.length > 0 ? Math.round((completedLessons / lessons.length) * 100) : 0;
   
   return (
     <div className="module-page">
-      <section className="module-hero" style={{ backgroundImage: `url(${module.image})` }}>
-        <div className="module-hero-overlay"></div>
+      <section className="module-header">
         <AdaptiveContainer>
-          <div className="module-hero-content">
-            <Link to="/modules" className="module-back-link">
-              <ArrowLeft size={16} />
-              <span>Назад к модулям</span>
-            </Link>
-            
-            <AnimatedElement animation="fade-up">
-              <h1 className="module-title">{module.title}</h1>
-              
-              <div className="module-meta">
-                {module.level && (
-                  <div className="module-level">
-                    <Award size={16} />
-                    <span>{module.level}</span>
-                  </div>
-                )}
+          <div className="module-header-content">
+            <div className="module-info">
+              <AnimatedElement animation="fade-right">
+                <Link to="/modules" className="module-back-link">
+                  <ArrowLeft size={20} />
+                  <span>Назад к модулям</span>
+                </Link>
                 
-                {module.duration && (
-                  <div className="module-duration">
-                    <Clock size={16} />
+                <h1 className="module-title">{module.title}</h1>
+                <p className="module-description">{module.description}</p>
+                
+                <div className="module-meta">
+                  <div className="module-meta-item">
+                    <Clock size={18} />
                     <span>{module.duration}</span>
                   </div>
-                )}
-                
-                {module.studentsCount && (
-                  <div className="module-students">
-                    <Users size={16} />
+                  <div className="module-meta-item">
+                    <Book size={18} />
+                    <span>{lessons.length} уроков</span>
+                  </div>
+                  <div className="module-meta-item">
+                    <Users size={18} />
                     <span>{module.studentsCount} учеников</span>
                   </div>
-                )}
-              </div>
-              
-              <div className="module-progress-container">
-                <div className="module-progress-info">
-                  <span>Прогресс модуля</span>
-                  <span>{completedLessons}/{lessons.length} уроков</span>
+                  <div className="module-meta-item module-level">
+                    <Award size={18} />
+                    <span>{module.level}</span>
+                  </div>
                 </div>
-                <ProgressIndicator progress={progress} />
-              </div>
-            </AnimatedElement>
+                
+                <div className="module-progress">
+                  <ProgressIndicator value={progress} showValue={true} />
+                  <div className="module-progress-text">
+                    <span>{completedLessons} из {lessons.length} уроков завершено</span>
+                  </div>
+                </div>
+              </AnimatedElement>
+            </div>
+            
+            <div className="module-image">
+              <AnimatedElement animation="fade-left">
+                <img src={module.image} alt={module.title} />
+              </AnimatedElement>
+            </div>
           </div>
         </AdaptiveContainer>
       </section>
       
       <section className="module-content">
         <AdaptiveContainer>
-          <div className="module-description">
-            <AnimatedElement animation="fade-up">
-              <h2 className="module-section-title">О модуле</h2>
-              <div className="module-description-text">
-                <p>{module.description}</p>
-              </div>
-            </AnimatedElement>
-          </div>
-          
           <div className="module-lessons">
-            <AnimatedElement animation="fade-up" delay={0.1}>
-              <h2 className="module-section-title">Уроки в этом модуле</h2>
+            <AnimatedElement animation="fade-up">
+              <h2 className="module-section-title">Уроки модуля</h2>
               
-              <div className="module-lessons-list">
+              <div className="lessons-list">
                 {lessons.map((lesson, index) => (
                   <AnimatedElement 
                     key={lesson.id} 
@@ -145,46 +141,6 @@ const Module = ({ showToast }) => {
               </div>
             </AnimatedElement>
           </div>
-          
-          {module.premium && (
-            <div className="module-premium">
-              <AnimatedElement animation="fade-up" delay={0.2}>
-                <div className="module-premium-card">
-                  <h2 className="module-premium-title">Получите полный доступ</h2>
-                  <p className="module-premium-description">
-                    Разблокируйте все уроки этого модуля и получите доступ к дополнительным материалам.
-                  </p>
-                  
-                  <div className="module-premium-features">
-                    <div className="module-premium-feature">
-                      <Check size={18} />
-                      <span>Все уроки модуля</span>
-                    </div>
-                    <div className="module-premium-feature">
-                      <Check size={18} />
-                      <span>Дополнительные материалы</span>
-                    </div>
-                    <div className="module-premium-feature">
-                      <Check size={18} />
-                      <span>Доступ навсегда</span>
-                    </div>
-                  </div>
-                  
-                  <div className="module-premium-price">
-                    <PriceTag price={module.price} />
-                  </div>
-                  
-                  <PremiumButton 
-                    variant="gradient"
-                    size="large"
-                    fullWidth
-                  >
-                    Получить доступ
-                  </PremiumButton>
-                </div>
-              </AnimatedElement>
-            </div>
-          )}
         </AdaptiveContainer>
       </section>
     </div>

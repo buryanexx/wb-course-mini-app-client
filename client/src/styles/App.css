@@ -143,9 +143,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--background-medium);
-  color: var(--text-dark);
-  position: relative;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
 }
 
 .app::before {
@@ -175,11 +174,8 @@ a:hover {
 
 .main-content {
   flex: 1;
-  padding: var(--spacing-md) 0;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  animation: fadeIn var(--transition-normal);
+  padding-top: 60px; /* Высота хедера */
+  padding-bottom: var(--spacing-xl);
 }
 
 .page-container {
@@ -271,7 +267,7 @@ a:hover {
 /* Адаптивность */
 @media (max-width: 768px) {
   .main-content {
-    padding: var(--spacing-sm) 0;
+    padding-top: 56px; /* Меньшая высота хедера на мобильных */
   }
   
   .grid {
@@ -380,23 +376,68 @@ a:hover {
 
 .toast-container {
   position: fixed;
-  bottom: var(--spacing-lg);
-  right: var(--spacing-lg);
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  z-index: 1000;
+  gap: 10px;
+  max-width: 350px;
 }
 
-/* Адаптивность */
+/* Стили для страниц с ошибками загрузки */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  text-align: center;
+  min-height: 300px;
+}
+
+.error-title {
+  font-size: var(--font-size-xxl);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-error);
+}
+
+.error-message {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-secondary);
+}
+
+.error-action {
+  margin-top: var(--spacing-lg);
+}
+
+/* Стили для состояний загрузки */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  min-height: 300px;
+}
+
+.loading-text {
+  margin-top: var(--spacing-lg);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+}
+
+/* Медиа-запросы для адаптивности */
 @media (max-width: 768px) {
   .app-content {
     padding: var(--spacing-md);
   }
   
   .toast-container {
-    bottom: var(--spacing-md);
-    right: var(--spacing-md);
-    left: var(--spacing-md);
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
   }
 }

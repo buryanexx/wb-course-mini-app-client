@@ -3,94 +3,76 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Menu from './components/Menu';
 import Home from './pages/Home';
 import Modules from './pages/Modules';
 import Module from './pages/Module';
 import Lesson from './pages/Lesson';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import KnowledgeBase from './pages/KnowledgeBase';
+import KnowledgeCategory from './pages/KnowledgeCategory';
+import Article from './pages/Article';
+import Tools from './pages/Tools';
+import MarginCalculator from './pages/MarginCalculator';
 import { initTelegramApp } from './utils/telegram';
 import './styles/global.css';
 import './styles/App.css';
 import './styles/Typography.css';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
 import Toast from './components/Toast';
 
 const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [toasts, setToasts] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
   
   useEffect(() => {
+    // Инициализация Telegram Mini App
     initTelegramApp();
+    
     // Проверка предпочтений пользователя для темной темы
     const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setDarkMode(localStorage.getItem('darkMode') === 'true' || prefersDarkMode);
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(savedDarkMode || prefersDarkMode);
     
     document.body.classList.toggle('dark-theme', darkMode);
   }, [darkMode]);
   
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-  
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-  
-  // Блокировка прокрутки при открытом меню
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
-  
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode);
-    document.documentElement.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', String(newDarkMode));
+    document.body.classList.toggle('dark-theme', newDarkMode);
   };
   
   const addToast = (toast) => {
     const id = Date.now();
-    setToasts([...toasts, { ...toast, id }]);
+    setToasts(prevToasts => [...prevToasts, { id, ...toast }]);
     
-    // Автоматическое удаление через 5 секунд
+    // Автоматическое удаление уведомления через 5 секунд
     setTimeout(() => {
       removeToast(id);
-    }, toast.duration || 5000);
+    }, 5000);
   };
   
   const removeToast = (id) => {
-    setToasts(toasts.filter(toast => toast.id !== id));
+    setToasts(prevToasts => prevToasts.filter(toast => toast.id !== id));
   };
   
   return (
     <Router>
       <div className={`app ${darkMode ? 'dark-theme' : ''}`}>
-        <Navbar 
-          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
-          onDarkModeToggle={toggleDarkMode}
-          darkMode={darkMode}
-        />
-        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         
-        <main className="main-content" onClick={isMenuOpen ? closeMenu : undefined}>
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home addToast={addToast} />} />
-            <Route path="/modules" element={<Modules />} />
-            <Route path="/modules/:moduleId" element={<Module />} />
-            <Route path="/modules/:moduleId/lessons/:lessonId" element={<Lesson />} />
+            <Route path="/modules" element={<Modules addToast={addToast} />} />
+            <Route path="/modules/:moduleId" element={<Module addToast={addToast} />} />
+            <Route path="/modules/:moduleId/lessons/:lessonId" element={<Lesson addToast={addToast} />} />
+            <Route path="/knowledge" element={<KnowledgeBase addToast={addToast} />} />
+            <Route path="/knowledge/:categoryId" element={<KnowledgeCategory addToast={addToast} />} />
+            <Route path="/knowledge/:categoryId/article/:articleId" element={<Article addToast={addToast} />} />
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/tools/margin-calculator" element={<MarginCalculator addToast={addToast} />} />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

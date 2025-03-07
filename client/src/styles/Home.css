@@ -3,6 +3,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--spacing-lg);
+    padding-bottom: var(--spacing-xxl);
   }
   
   .home-header {
@@ -53,13 +54,293 @@
     color: var(--text-medium);
   }
   
+  /* Герой-секция */
+  .home-hero {
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+    color: white;
+    padding: var(--spacing-xxl) 0;
+    margin-bottom: var(--spacing-xxl);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .home-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    background-image: url('/images/hero-pattern.svg');
+    background-size: cover;
+    opacity: 0.1;
+  }
+  
+  .home-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+  }
+  
+  .home-hero-title {
+    font-size: var(--font-size-xxxl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .home-hero-subtitle {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-xl);
+    opacity: 0.9;
+  }
+  
+  .home-hero-actions {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+  
+  .home-hero-button {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-weight: 600;
+  }
+  
+  /* Секция особенностей */
+  .home-features {
+    margin-bottom: var(--spacing-xxl);
+  }
+  
+  .section-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-xl);
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+  }
+  
+  .feature-card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-light);
+    color: white;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .feature-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+  }
+  
+  .feature-description {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  
+  /* Секция популярных модулей */
+  .home-popular-modules {
+    margin-bottom: var(--spacing-xxl);
+  }
+  
+  .home-modules-action {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+  }
+  
+  .view-all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .view-all-link:hover {
+    color: var(--color-primary-dark);
+  }
+  
+  .view-all-link svg {
+    transition: transform var(--transition-fast);
+  }
+  
+  .view-all-link:hover svg {
+    transform: translateX(5px);
+  }
+  
+  /* Секция отзывов */
+  .home-testimonials {
+    margin-bottom: var(--spacing-xxl);
+    background-color: var(--color-surface);
+    padding: var(--spacing-xxl) 0;
+  }
+  
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
+  }
+  
+  .testimonial-card {
+    background-color: var(--color-background);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .testimonial-content {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+  }
+  
+  .testimonial-content::before {
+    content: '"';
+    font-size: 4rem;
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    color: var(--color-primary-light);
+    opacity: 0.2;
+  }
+  
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+  
+  .testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+  }
+  
+  .testimonial-info {
+    flex: 1;
+  }
+  
+  .testimonial-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .testimonial-role {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+  }
+  
+  /* Секция CTA */
+  .home-cta {
+    background: linear-gradient(135deg, var(--color-secondary-dark), var(--color-secondary));
+    color: white;
+    padding: var(--spacing-xxl) 0;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xxl);
+  }
+  
+  .home-cta-title {
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .home-cta-subtitle {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xl);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+  }
+  
+  .home-cta-button {
+    background-color: white;
+    color: var(--color-secondary);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-weight: 600;
+    font-size: var(--font-size-md);
+  }
+  
+  .home-cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--color-secondary-dark);
+  }
+  
   /* Адаптивность */
   @media (max-width: 768px) {
     .home-page {
       padding: var(--spacing-md);
     }
     
-    .modules-grid {
+    .home-hero {
+      padding: var(--spacing-xl) 0;
+    }
+    
+    .home-hero-title {
+      font-size: var(--font-size-xxl);
+    }
+    
+    .home-hero-subtitle {
+      font-size: var(--font-size-lg);
+    }
+    
+    .home-hero-actions {
+      flex-direction: column;
+    }
+    
+    .section-title {
+      font-size: var(--font-size-xl);
+    }
+    
+    .section-subtitle {
+      font-size: var(--font-size-md);
+    }
+    
+    .features-grid,
+    .modules-grid,
+    .testimonials-grid {
       grid-template-columns: 1fr;
+    }
+    
+    .home-cta {
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    .home-cta-title {
+      font-size: var(--font-size-xl);
+    }
+    
+    .home-cta-subtitle {
+      font-size: var(--font-size-md);
     }
   }

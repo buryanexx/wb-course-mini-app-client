@@ -1,47 +1,115 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu as MenuIcon, X } from 'react-feather';
+import { Menu, X, Sun, Moon } from 'react-feather';
 import '../styles/Header.css';
 
-const Header = ({ toggleMenu, isMenuOpen }) => {
+const Header = ({ darkMode, toggleDarkMode }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const [scrolled, setScrolled] = useState(false);
   
+  // Закрытие меню при изменении маршрута
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
+    setIsMenuOpen(false);
+  }, [location]);
+  
+  // Блокировка прокрутки при открытом меню
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
   
   return (
-    <header className={`header ${scrolled ? 'header-scrolled' : ''}`}>
+    <header className="header">
       <div className="header-container">
-        <Link to="/" className="logo">
-          <span className="logo-text">WB Решение</span>
+        <Link to="/" className="header-logo">
+          <span className="logo-text">WB Курс</span>
         </Link>
         
-        <nav className="desktop-nav">
-          <Link to="/" className={location.pathname === '/' ? 'nav-link active' : 'nav-link'}>
-            Главная
-          </Link>
-          <Link to="/modules" className={location.pathname.includes('/modules') ? 'nav-link active' : 'nav-link'}>
-            Модули
-          </Link>
-          <Link to="/about" className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}>
-            О курсе
-          </Link>
+        <nav className={`header-nav ${isMenuOpen ? 'is-open' : ''}`}>
+          <button 
+            className="header-close-menu" 
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Закрыть меню"
+          >
+            <X size={24} />
+          </button>
+          
+          <ul className="header-menu">
+            <li className="header-menu-item">
+              <Link 
+                to="/" 
+                className={location.pathname === '/' ? 'active' : ''}
+              >
+                Главная
+              </Link>
+            </li>
+            <li className="header-menu-item">
+              <Link 
+                to="/modules" 
+                className={location.pathname.startsWith('/modules') ? 'active' : ''}
+              >
+                Модули
+              </Link>
+            </li>
+            <li className="header-menu-item">
+              <Link 
+                to="/knowledge" 
+                className={location.pathname.startsWith('/knowledge') ? 'active' : ''}
+              >
+                База знаний
+              </Link>
+            </li>
+            <li className="header-menu-item">
+              <Link 
+                to="/tools" 
+                className={location.pathname.startsWith('/tools') ? 'active' : ''}
+              >
+                Инструменты
+              </Link>
+            </li>
+            <li className="header-menu-item">
+              <Link 
+                to="/about" 
+                className={location.pathname === '/about' ? 'active' : ''}
+              >
+                О курсе
+              </Link>
+            </li>
+          </ul>
         </nav>
         
-        <button className="menu-toggle" onClick={toggleMenu} aria-label="Меню">
-          {isMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
-        </button>
+        <div className="header-actions">
+          <button 
+            className="header-theme-toggle" 
+            onClick={toggleDarkMode}
+            aria-label={darkMode ? 'Включить светлую тему' : 'Включить темную тему'}
+          >
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+          
+          <button 
+            className="header-menu-toggle" 
+            onClick={() => setIsMenuOpen(true)}
+            aria-label="Открыть меню"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
       </div>
+      
+      {isMenuOpen && (
+        <div 
+          className="header-overlay" 
+          onClick={() => setIsMenuOpen(false)}
+        ></div>
+      )}
     </header>
   );
 };

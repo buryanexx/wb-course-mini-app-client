@@ -1,62 +1,49 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../styles/Button.css';
 
-const Button = ({
-  children,
-  variant = 'default',
-  size = 'medium',
-  icon,
-  iconPosition = 'left',
+const Button = ({ 
+  children, 
+  variant = 'primary', 
+  size = 'medium', 
   fullWidth = false,
   disabled = false,
-  as = 'button',
-  className = '',
+  icon = null,
+  iconPosition = 'left',
   onClick,
+  type = 'button',
+  className = '',
   ...props
 }) => {
-  const Component = as;
-  
-  const buttonClasses = `
-    button 
-    button-${variant} 
-    button-${size} 
-    ${fullWidth ? 'button-full-width' : ''} 
-    ${icon && !children ? 'button-icon-only' : ''} 
-    ${className}
-  `;
+  const buttonClasses = [
+    'button',
+    `button-${variant}`,
+    `button-${size}`,
+    fullWidth ? 'button-full-width' : '',
+    disabled ? 'button-disabled' : '',
+    icon ? 'button-with-icon' : '',
+    icon && iconPosition === 'right' ? 'button-icon-right' : '',
+    className
+  ].filter(Boolean).join(' ');
   
   return (
-    <Component 
-      className={buttonClasses} 
-      onClick={onClick} 
+    <button
+      type={type}
+      className={buttonClasses}
       disabled={disabled}
+      onClick={onClick}
       {...props}
     >
       {icon && iconPosition === 'left' && (
-        <span className="button-icon button-icon-left">{icon}</span>
+        <span className="button-icon">{icon}</span>
       )}
       
-      {children && <span className="button-text">{children}</span>}
+      <span className="button-text">{children}</span>
       
       {icon && iconPosition === 'right' && (
-        <span className="button-icon button-icon-right">{icon}</span>
+        <span className="button-icon">{icon}</span>
       )}
-    </Component>
+    </button>
   );
-};
-
-Button.propTypes = {
-  children: PropTypes.node,
-  variant: PropTypes.oneOf(['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info', 'outline', 'ghost']),
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  icon: PropTypes.node,
-  iconPosition: PropTypes.oneOf(['left', 'right']),
-  fullWidth: PropTypes.bool,
-  disabled: PropTypes.bool,
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
-  className: PropTypes.string,
-  onClick: PropTypes.func
 };
 
 export default Button; 

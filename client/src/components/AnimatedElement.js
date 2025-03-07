@@ -8,52 +8,54 @@ const AnimatedElement = ({
   delay = 0, 
   duration = 0.5,
   threshold = 0.1,
-  once = true
+  className = '',
+  ...props 
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef(null);
-
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          if (once) {
-            observer.unobserve(entry.target);
-          }
-        } else if (!once) {
-          setIsVisible(false);
+          observer.disconnect();
         }
       },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold
-      }
+      { threshold }
     );
-
+    
     const currentElement = elementRef.current;
+    
     if (currentElement) {
       observer.observe(currentElement);
     }
-
+    
     return () => {
       if (currentElement) {
         observer.unobserve(currentElement);
       }
     };
-  }, [once, threshold]);
-
+  }, [threshold]);
+  
   const animationStyle = {
     '--animation-delay': `${delay}s`,
     '--animation-duration': `${duration}s`
   };
-
+  
+  const animationClasses = [
+    'animated-element',
+    `animation-${animation}`,
+    isVisible ? 'is-visible' : '',
+    className
+  ].filter(Boolean).join(' ');
+  
   return (
     <div 
       ref={elementRef} 
-      className={`animated-element ${animation} ${isVisible ? 'visible' : ''}`}
+      className={animationClasses} 
       style={animationStyle}
+      {...props}
     >
       {children}
     </div>
@@ -74,7 +76,8 @@ AnimatedElement.propTypes = {
   delay: PropTypes.number,
   duration: PropTypes.number,
   threshold: PropTypes.number,
-  once: PropTypes.bool
+  className: PropTypes.string,
+  ...PropTypes.object
 };
 
 export default AnimatedElement; 

@@ -11,7 +11,7 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 import StatGroup from '../components/StatGroup';
 
-const Modules = ({ showToast }) => {
+const Modules = ({ addToast }) => {
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,14 +29,18 @@ const Modules = ({ showToast }) => {
       } catch (err) {
         console.error('Error fetching modules:', err);
         setError('Не удалось загрузить модули. Пожалуйста, попробуйте позже.');
-        showToast && showToast('Ошибка при загрузке модулей', 'error');
+        addToast({
+          variant: 'error',
+          title: 'Ошибка',
+          message: 'Не удалось загрузить модули'
+        });
       } finally {
         setLoading(false);
       }
     };
     
     fetchModules();
-  }, [showToast]);
+  }, [addToast]);
   
   const filteredModules = modules.filter(module => {
     const matchesSearch = module.title.toLowerCase().includes(searchTerm.toLowerCase()) || 

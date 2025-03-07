@@ -7,8 +7,77 @@
   transition-delay: var(--animation-delay, 0s);
 }
 
-.animated-element.visible {
+.animated-element.is-visible {
   opacity: 1;
+}
+
+/* Анимации появления */
+.animation-fade-in.animated-element {
+  opacity: 0;
+}
+
+.animation-fade-in.is-visible {
+  opacity: 1;
+}
+
+.animation-fade-up.animated-element {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.animation-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animation-fade-down.animated-element {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.animation-fade-down.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animation-fade-left.animated-element {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.animation-fade-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animation-fade-right.animated-element {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.animation-fade-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animation-zoom-in.animated-element {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.animation-zoom-in.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.animation-zoom-out.animated-element {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.animation-zoom-out.is-visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* Fade In */

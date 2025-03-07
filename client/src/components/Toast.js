@@ -2,25 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { X, AlertCircle, CheckCircle, Info, AlertTriangle } from 'react-feather';
 import '../styles/Toast.css';
 
-const Toast = ({ 
-  variant = 'default', 
-  title, 
-  message, 
-  onClose,
-  duration = 5000
-}) => {
-  const [isVisible, setIsVisible] = useState(true);
+const Toast = ({ variant = 'info', title, message, onClose }) => {
+  const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        onClose && onClose();
-      }, 300); // Время анимации исчезновения
-    }, duration);
+    // Анимация появления
+    setTimeout(() => {
+      setIsVisible(true);
+    }, 10);
     
-    return () => clearTimeout(timer);
-  }, [duration, onClose]);
+    return () => {
+      setIsVisible(false);
+    };
+  }, []);
+  
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose && onClose();
+    }, 300); // Время анимации исчезновения
+  };
   
   const getIcon = () => {
     switch (variant) {
@@ -37,7 +38,7 @@ const Toast = ({
   };
   
   return (
-    <div className={`toast toast-${variant} ${isVisible ? 'toast-visible' : 'toast-hidden'}`}>
+    <div className={`toast toast-${variant} ${isVisible ? 'visible' : ''}`}>
       <div className="toast-icon">
         {getIcon()}
       </div>
@@ -47,16 +48,7 @@ const Toast = ({
         {message && <div className="toast-message">{message}</div>}
       </div>
       
-      <button 
-        className="toast-close" 
-        onClick={() => {
-          setIsVisible(false);
-          setTimeout(() => {
-            onClose && onClose();
-          }, 300);
-        }}
-        aria-label="Закрыть уведомление"
-      >
+      <button className="toast-close" onClick={handleClose}>
         <X size={16} />
       </button>
     </div>

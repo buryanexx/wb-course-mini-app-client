@@ -1,40 +1,38 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Clock, BookOpen, Award } from 'react-feather';
-import PriceTag from './PriceTag';
-import PremiumButton from './PremiumButton';
+import { Clock, Users, BookOpen } from 'react-feather';
+import ProgressIndicator from './ProgressIndicator';
 import '../styles/ModuleCard.css';
 
-const ModuleCard = ({ 
-  id,
-  title, 
-  description, 
-  image, 
-  lessonsCount, 
-  duration, 
-  level,
-  price,
-  oldPrice,
-  discount,
-  isCompleted,
-  progress
-}) => {
+const ModuleCard = ({ module }) => {
+  const { id, title, description, image, level, duration, studentsCount, progress } = module;
+  
+  // Определение класса для уровня сложности
+  const getLevelClass = () => {
+    switch (level.toLowerCase()) {
+      case 'начальный':
+        return 'level-beginner';
+      case 'средний':
+        return 'level-intermediate';
+      case 'продвинутый':
+        return 'level-advanced';
+      default:
+        return '';
+    }
+  };
+  
   return (
-    <div className={`module-card ${isCompleted ? 'module-card-completed' : ''}`}>
+    <div className="module-card">
       <div className="module-card-image-container">
-        <img src={image} alt={title} className="module-card-image" />
-        {level && (
-          <div className={`module-card-level module-card-level-${level.toLowerCase()}`}>
-            {level}
-          </div>
-        )}
-        {isCompleted && (
-          <div className="module-card-completed-badge">
-            <Award size={16} />
-            Завершено
-          </div>
-        )}
+        <img 
+          src={image} 
+          alt={title} 
+          className="module-card-image" 
+          loading="lazy"
+        />
+        <div className={`module-card-level ${getLevelClass()}`}>
+          {level}
+        </div>
       </div>
       
       <div className="module-card-content">
@@ -42,73 +40,30 @@ const ModuleCard = ({
         <p className="module-card-description">{description}</p>
         
         <div className="module-card-meta">
-          {lessonsCount && (
-            <div className="module-card-meta-item">
-              <BookOpen size={16} />
-              <span>{lessonsCount} уроков</span>
-            </div>
-          )}
-          
-          {duration && (
-            <div className="module-card-meta-item">
-              <Clock size={16} />
-              <span>{duration}</span>
-            </div>
-          )}
+          <div className="module-card-meta-item">
+            <Clock size={16} />
+            <span>{duration}</span>
+          </div>
+          <div className="module-card-meta-item">
+            <Users size={16} />
+            <span>{studentsCount} учеников</span>
+          </div>
         </div>
         
-        {progress !== undefined && (
-          <div className="module-card-progress-container">
-            <div className="module-card-progress-bar">
-              <div 
-                className="module-card-progress-fill" 
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-            <div className="module-card-progress-text">
-              {progress}% завершено
-            </div>
+        {progress > 0 && (
+          <div className="module-card-progress">
+            <ProgressIndicator value={progress} />
+            <span className="module-card-progress-text">{progress}% завершено</span>
           </div>
         )}
         
-        <div className="module-card-footer">
-          {price !== undefined && (
-            <PriceTag 
-              price={price} 
-              oldPrice={oldPrice} 
-              discount={discount}
-              variant="primary"
-            />
-          )}
-          
-          <PremiumButton 
-            to={`/modules/${id}`} 
-            variant="outlined"
-            size="small"
-            icon={<ArrowRight size={16} />}
-            iconPosition="right"
-          >
-            Подробнее
-          </PremiumButton>
-        </div>
+        <Link to={`/modules/${id}`} className="module-card-link">
+          <BookOpen size={16} />
+          <span>Перейти к модулю</span>
+        </Link>
       </div>
     </div>
   );
-};
-
-ModuleCard.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  lessonsCount: PropTypes.number,
-  duration: PropTypes.string,
-  level: PropTypes.string,
-  price: PropTypes.number,
-  oldPrice: PropTypes.number,
-  discount: PropTypes.number,
-  isCompleted: PropTypes.bool,
-  progress: PropTypes.number
 };
 
 export default ModuleCard;

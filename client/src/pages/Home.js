@@ -1,160 +1,179 @@
 // client/src/pages/Home.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Award, TrendingUp, Users, Star } from 'react-feather';
-import Card from '../components/Card';
+import { ArrowRight, BookOpen, Award, TrendingUp } from 'react-feather';
+import AdaptiveContainer from '../components/AdaptiveContainer';
+import ModuleCard from '../components/ModuleCard';
+import AnimatedElement from '../components/AnimatedElement';
 import Button from '../components/Button';
-import StatGroup from '../components/StatGroup';
-import EmptyState from '../components/EmptyState';
-import ProgressBar from '../components/ProgressBar';
-import { fetchModules } from '../utils/api';
 import '../styles/Home.css';
+import { getModules } from '../utils/api';
 
 const Home = ({ addToast }) => {
-  const [modules, setModules] = useState([]);
+  const [featuredModules, setFeaturedModules] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   
   useEffect(() => {
-    const loadModules = async () => {
+    const fetchFeaturedModules = async () => {
       try {
         setLoading(true);
-        const data = await fetchModules();
-        setModules(data);
-        setLoading(false);
-      } catch (err) {
-        setError('Не удалось загрузить модули. Пожалуйста, попробуйте позже.');
-        setLoading(false);
+        const modules = await getModules();
+        // Берем первые 3 модуля для отображения на главной
+        setFeaturedModules(modules.slice(0, 3));
+      } catch (error) {
+        console.error('Error fetching featured modules:', error);
         addToast({
+          variant: 'error',
           title: 'Ошибка',
-          message: 'Не удалось загрузить данные курса',
-          variant: 'error'
+          message: 'Не удалось загрузить рекомендуемые модули'
         });
+      } finally {
+        setLoading(false);
       }
     };
     
-    loadModules();
+    fetchFeaturedModules();
   }, [addToast]);
-  
-  const stats = [
-    {
-      title: 'Модулей',
-      value: '8',
-      icon: <BookOpen size={24} />,
-      variant: 'primary'
-    },
-    {
-      title: 'Уроков',
-      value: '42',
-      icon: <Award size={24} />,
-      variant: 'secondary'
-    },
-    {
-      title: 'Средний доход выпускников',
-      value: '300 000 ₽',
-      icon: <TrendingUp size={24} />,
-      change: '+15% к прошлому году',
-      changeType: 'positive',
-      variant: 'success'
-    },
-    {
-      title: 'Учеников',
-      value: '1200+',
-      icon: <Users size={24} />,
-      variant: 'info'
-    }
-  ];
-  
-  const renderContent = () => {
-    if (loading) {
-      return (
-        <div className="home-loading">
-          <ProgressBar 
-            value={70} 
-            max={100} 
-            variant="primary" 
-            animated={true} 
-            striped={true}
-            height={8}
-          />
-          <p>Загрузка данных курса...</p>
-        </div>
-      );
-    }
-    
-    if (error) {
-      return (
-        <EmptyState
-          title="Не удалось загрузить данные"
-          description={error}
-          icon={<TrendingUp size={64} />}
-          action={() => window.location.reload()}
-          actionText="Попробовать снова"
-          variant="error"
-        />
-      );
-    }
-    
-    return (
-      <>
-        <div className="home-stats">
-          <StatGroup stats={stats} columns={4} gap="medium" />
-        </div>
-        
-        <div className="home-modules">
-          <h2 className="section-title">Модули курса</h2>
-          <div className="modules-grid">
-            {modules.map((module) => (
-              <Card
-                key={module.id}
-                title={module.title}
-                description={module.shortDescription}
-                icon={module.icon}
-                footer={
-                  <Button 
-                    variant="primary" 
-                    size="small"
-                    as={Link}
-                    to={`/modules/${module.id}`}
-                  >
-                    Подробнее
-                  </Button>
-                }
-              />
-            ))}
-          </div>
-        </div>
-        
-        <div className="home-cta">
-          <Card
-            variant="primary"
-            title="Готовы начать свой путь к успеху на Wildberries?"
-            description="Присоединяйтесь к нашему курсу и узнайте, как зарабатывать от 300 000 рублей в месяц на маркетплейсе."
-            footer={
-              <Button 
-                variant="secondary" 
-                size="large"
-                fullWidth
-              >
-                Записаться на курс
-              </Button>
-            }
-          />
-        </div>
-      </>
-    );
-  };
   
   return (
     <div className="home-page">
-      <div className="home-header">
-        <h1>Курс по выходу на Wildberries</h1>
-        <p className="home-subtitle">
-          От нуля до прибыли в 300 000 рублей
-        </p>
-      </div>
+      {/* Hero Section */}
+      <section className="hero">
+        <AdaptiveContainer>
+          <div className="hero-content">
+            <AnimatedElement animation="fade-up">
+              <h1 className="hero-title">Курс по выходу на Wildberries</h1>
+              <p className="hero-subtitle">От нуля до прибыли в 300 000 рублей</p>
+              
+              <div className="hero-cta">
+                <Link to="/modules">
+                  <Button 
+                    variant="primary" 
+                    size="large"
+                    icon={<ArrowRight size={20} />}
+                    iconPosition="right"
+                  >
+                    Начать обучение
+                  </Button>
+                </Link>
+              </div>
+            </AnimatedElement>
+          </div>
+        </AdaptiveContainer>
+      </section>
       
-      {renderContent()}
+      {/* Features Section */}
+      <section className="features">
+        <AdaptiveContainer>
+          <AnimatedElement animation="fade-up">
+            <h2 className="section-title">Почему наш курс?</h2>
+            
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="feature-icon">
+                  <BookOpen size={32} />
+                </div>
+                <h3 className="feature-title">Практические знания</h3>
+                <p className="feature-description">
+                  Все материалы основаны на реальном опыте успешных продавцов
+                </p>
+              </div>
+              
+              <div className="feature-card">
+                <div className="feature-icon">
+                  <Award size={32} />
+                </div>
+                <h3 className="feature-title">Поддержка экспертов</h3>
+                <p className="feature-description">
+                  Наши эксперты помогут решить любые вопросы в процессе обучения
+                </p>
+              </div>
+              
+              <div className="feature-card">
+                <div className="feature-icon">
+                  <TrendingUp size={32} />
+                </div>
+                <h3 className="feature-title">Гарантированный результат</h3>
+                <p className="feature-description">
+                  Следуя нашим рекомендациям, вы достигнете желаемых результатов
+                </p>
+              </div>
+            </div>
+          </AnimatedElement>
+        </AdaptiveContainer>
+      </section>
+      
+      {/* Featured Modules Section */}
+      <section className="featured-modules">
+        <AdaptiveContainer>
+          <AnimatedElement animation="fade-up">
+            <div className="section-header">
+              <h2 className="section-title">Популярные модули</h2>
+              <Link to="/modules" className="section-link">
+                Все модули
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+            
+            {loading ? (
+              <div className="loading-modules">
+                <div className="loader"></div>
+                <p>Загрузка модулей...</p>
+              </div>
+            ) : (
+              <div className="modules-grid">
+                {featuredModules.map((module, index) => (
+                  <AnimatedElement 
+                    key={module.id} 
+                    animation="fade-up"
+                    delay={index * 0.1}
+                  >
+                    <ModuleCard module={module} />
+                  </AnimatedElement>
+                ))}
+              </div>
+            )}
+            
+            <div className="featured-modules-cta">
+              <Link to="/modules">
+                <Button 
+                  variant="outline" 
+                  size="medium"
+                  icon={<ArrowRight size={16} />}
+                  iconPosition="right"
+                >
+                  Смотреть все модули
+                </Button>
+              </Link>
+            </div>
+          </AnimatedElement>
+        </AdaptiveContainer>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="cta-section">
+        <AdaptiveContainer>
+          <AnimatedElement animation="fade-up">
+            <div className="cta-card">
+              <h2 className="cta-title">Готовы начать свой путь к успеху?</h2>
+              <p className="cta-description">
+                Присоединяйтесь к тысячам предпринимателей, которые уже зарабатывают на Wildberries
+              </p>
+              
+              <Link to="/modules">
+                <Button 
+                  variant="primary" 
+                  size="large"
+                  icon={<ArrowRight size={20} />}
+                  iconPosition="right"
+                >
+                  Начать обучение
+                </Button>
+              </Link>
+            </div>
+          </AnimatedElement>
+        </AdaptiveContainer>
+      </section>
     </div>
   );
 };

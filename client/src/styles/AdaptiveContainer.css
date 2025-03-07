@@ -5,11 +5,48 @@
   border-radius: 8px;
   margin-bottom: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
 }
 
 /* Для темной темы */
 @media (prefers-color-scheme: dark) {
   .adaptive-container {
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+  }
+}
+
+.max-width-sm {
+  max-width: var(--container-sm);
+}
+
+.max-width-md {
+  max-width: var(--container-md);
+}
+
+.max-width-lg {
+  max-width: var(--container-lg);
+}
+
+.max-width-xl {
+  max-width: var(--container-xl);
+}
+
+.max-width-default {
+  max-width: var(--container-xl);
+}
+
+.max-width-full {
+  max-width: none;
+}
+
+@media (max-width: 768px) {
+  .adaptive-container {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
   }
 }
