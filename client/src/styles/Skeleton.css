@@ -1,0 +1,25 @@
+.skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-start, rgba(0, 0, 0, 0.06)) 25%,
+    var(--color-skeleton-middle, rgba(0, 0, 0, 0.12)) 37%,
+    var(--color-skeleton-end, rgba(0, 0, 0, 0.06)) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.dark-theme .skeleton-loader {
+  --color-skeleton-start: rgba(255, 255, 255, 0.08);
+  --color-skeleton-middle: rgba(255, 255, 255, 0.14);
+  --color-skeleton-end: rgba(255, 255, 255, 0.08);
+} 
