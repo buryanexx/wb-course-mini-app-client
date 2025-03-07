@@ -9,6 +9,7 @@ import AnimatedElement from '../components/AnimatedElement';
 import ProgressIndicator from '../components/ProgressIndicator';
 import '../styles/Module.css';
 import { getModule, getLessons } from '../utils/api';
+import Button from '../components/Button';
 
 const Module = ({ showToast }) => {
   const { moduleId } = useParams();
@@ -68,134 +69,122 @@ const Module = ({ showToast }) => {
       <section className="module-hero" style={{ backgroundImage: `url(${module.image})` }}>
         <div className="module-hero-overlay"></div>
         <AdaptiveContainer>
-          <AnimatedElement animation="fade-up">
-            <Link to="/modules" className="module-back-button">
+          <div className="module-hero-content">
+            <Link to="/modules" className="module-back-link">
               <ArrowLeft size={16} />
               <span>Назад к модулям</span>
             </Link>
             
-            <h1 className="module-title">{module.title}</h1>
-            
-            <div className="module-meta">
-              {module.level && (
-                <div className={`module-level module-level-${module.level.toLowerCase()}`}>
-                  {module.level}
-                </div>
-              )}
+            <AnimatedElement animation="fade-up">
+              <h1 className="module-title">{module.title}</h1>
               
-              {module.lessonsCount && (
-                <div className="module-meta-item">
-                  <Book size={16} />
-                  <span>{module.lessonsCount} уроков</span>
-                </div>
-              )}
+              <div className="module-meta">
+                {module.level && (
+                  <div className="module-level">
+                    <Award size={16} />
+                    <span>{module.level}</span>
+                  </div>
+                )}
+                
+                {module.duration && (
+                  <div className="module-duration">
+                    <Clock size={16} />
+                    <span>{module.duration}</span>
+                  </div>
+                )}
+                
+                {module.studentsCount && (
+                  <div className="module-students">
+                    <Users size={16} />
+                    <span>{module.studentsCount} учеников</span>
+                  </div>
+                )}
+              </div>
               
-              {module.duration && (
-                <div className="module-meta-item">
-                  <Clock size={16} />
-                  <span>{module.duration}</span>
+              <div className="module-progress-container">
+                <div className="module-progress-info">
+                  <span>Прогресс модуля</span>
+                  <span>{completedLessons}/{lessons.length} уроков</span>
                 </div>
-              )}
-              
-              {module.studentsCount && (
-                <div className="module-meta-item">
-                  <Users size={16} />
-                  <span>{module.studentsCount} учеников</span>
-                </div>
-              )}
-            </div>
-          </AnimatedElement>
+                <ProgressIndicator progress={progress} />
+              </div>
+            </AnimatedElement>
+          </div>
         </AdaptiveContainer>
       </section>
       
       <section className="module-content">
         <AdaptiveContainer>
-          <div className="module-layout">
-            <div className="module-main">
-              <AnimatedElement animation="fade-up">
-                <div className="module-description">
-                  <h2 className="section-title">Описание модуля</h2>
-                  <div className="module-description-content">
-                    <p>{module.description}</p>
-                  </div>
-                </div>
-              </AnimatedElement>
-              
-              <AnimatedElement animation="fade-up" delay={0.1}>
-                <div className="module-lessons">
-                  <h2 className="section-title">Уроки модуля</h2>
-                  
-                  <div className="module-progress">
-                    <div className="module-progress-info">
-                      <div className="module-progress-title">Ваш прогресс</div>
-                      <div className="module-progress-stats">
-                        <span className="module-progress-completed">{completedLessons}</span>
-                        <span className="module-progress-separator">/</span>
-                        <span className="module-progress-total">{lessons.length}</span>
-                        <span className="module-progress-text">уроков завершено</span>
-                      </div>
-                    </div>
-                    <ProgressIndicator progress={progress} />
-                  </div>
-                  
-                  <div className="lessons-list">
-                    {lessons.map(lesson => (
-                      <LessonCard 
-                        key={lesson.id}
-                        {...lesson}
-                        moduleId={moduleId}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </AnimatedElement>
-            </div>
-            
-            <div className="module-sidebar">
-              <AnimatedElement animation="fade-left">
-                <div className="module-card">
-                  {module.price !== undefined && (
-                    <div className="module-price">
-                      <PriceTag 
-                        price={module.price} 
-                        oldPrice={module.oldPrice} 
-                        discount={module.discount}
-                        variant="gradient"
-                        size="large"
-                      />
-                    </div>
-                  )}
-                  
-                  <div className="module-actions">
-                    {lessons.length > 0 && (
-                      <PremiumButton 
-                        to={`/modules/${moduleId}/lessons/${lessons[0].id}`}
-                        variant="gradient"
-                        size="large"
-                        fullWidth
-                      >
-                        {progress > 0 ? 'Продолжить обучение' : 'Начать обучение'}
-                      </PremiumButton>
-                    )}
-                  </div>
-                  
-                  {module.features && module.features.length > 0 && (
-                    <div className="module-features">
-                      <h3 className="module-features-title">Что вы получите</h3>
-                      <ul className="module-features-list">
-                        {module.features.map((feature, index) => (
-                          <li key={index} className="module-feature-item">
-                            <Award size={16} className="module-feature-icon" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </AnimatedElement>
-            </div>
+          <div className="module-description">
+            <AnimatedElement animation="fade-up">
+              <h2 className="module-section-title">О модуле</h2>
+              <div className="module-description-text">
+                <p>{module.description}</p>
+              </div>
+            </AnimatedElement>
           </div>
+          
+          <div className="module-lessons">
+            <AnimatedElement animation="fade-up" delay={0.1}>
+              <h2 className="module-section-title">Уроки в этом модуле</h2>
+              
+              <div className="module-lessons-list">
+                {lessons.map((lesson, index) => (
+                  <AnimatedElement 
+                    key={lesson.id} 
+                    animation="fade-up"
+                    delay={index * 0.05}
+                  >
+                    <LessonCard 
+                      lesson={lesson}
+                      moduleId={moduleId}
+                      index={index + 1}
+                    />
+                  </AnimatedElement>
+                ))}
+              </div>
+            </AnimatedElement>
+          </div>
+          
+          {module.premium && (
+            <div className="module-premium">
+              <AnimatedElement animation="fade-up" delay={0.2}>
+                <div className="module-premium-card">
+                  <h2 className="module-premium-title">Получите полный доступ</h2>
+                  <p className="module-premium-description">
+                    Разблокируйте все уроки этого модуля и получите доступ к дополнительным материалам.
+                  </p>
+                  
+                  <div className="module-premium-features">
+                    <div className="module-premium-feature">
+                      <Check size={18} />
+                      <span>Все уроки модуля</span>
+                    </div>
+                    <div className="module-premium-feature">
+                      <Check size={18} />
+                      <span>Дополнительные материалы</span>
+                    </div>
+                    <div className="module-premium-feature">
+                      <Check size={18} />
+                      <span>Доступ навсегда</span>
+                    </div>
+                  </div>
+                  
+                  <div className="module-premium-price">
+                    <PriceTag price={module.price} />
+                  </div>
+                  
+                  <PremiumButton 
+                    variant="gradient"
+                    size="large"
+                    fullWidth
+                  >
+                    Получить доступ
+                  </PremiumButton>
+                </div>
+              </AnimatedElement>
+            </div>
+          )}
         </AdaptiveContainer>
       </section>
     </div>

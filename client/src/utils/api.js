@@ -57,6 +57,21 @@ export const fetchModuleById = async (moduleId) => {
 };
 
 /**
+ * Получение списка уроков для модуля
+ * @param {number|string} moduleId ID модуля
+ * @returns {Promise<Array>} Массив уроков
+ */
+export const fetchLessons = async (moduleId) => {
+  try {
+    const response = await api.get(`/modules/${moduleId}/lessons`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching lessons for module ${moduleId}:`, error);
+    throw error;
+  }
+};
+
+/**
  * Получение информации о конкретном уроке
  * @param {number|string} moduleId ID модуля
  * @param {number|string} lessonId ID урока
@@ -71,11 +86,6 @@ export const fetchLessonById = async (moduleId, lessonId) => {
     throw error;
   }
 };
-
-/**
- * Получение урока (алиас для fetchLessonById для обратной совместимости)
- */
-export const getLesson = fetchLessonById;
 
 /**
  * Отправка обратной связи
@@ -108,10 +118,28 @@ export const markLessonAsViewed = async (moduleId, lessonId) => {
   }
 };
 
+/**
+ * Завершение урока
+ * @param {number|string} moduleId ID модуля
+ * @param {number|string} lessonId ID урока
+ * @returns {Promise<Object>} Результат операции
+ */
+export const completeLesson = async (moduleId, lessonId) => {
+  try {
+    const response = await api.post(`/modules/${moduleId}/lessons/${lessonId}/complete`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error completing lesson ${lessonId}:`, error);
+    throw error;
+  }
+};
+
 // Алиасы для обратной совместимости
-export { fetchModules as getModules };
-export { fetchModuleById as getModuleById };
-export { sendFeedback as submitFeedback };
-export { fetchModuleById as getModule };
+export const getModules = fetchModules;
+export const getModuleById = fetchModuleById;
+export const getModule = fetchModuleById;
+export const getLesson = fetchLessonById;
+export const getLessons = fetchLessons;
+export const submitFeedback = sendFeedback;
 
 export default api;

@@ -6,7 +6,7 @@ import PremiumButton from '../components/PremiumButton';
 import AnimatedElement from '../components/AnimatedElement';
 import ProgressIndicator from '../components/ProgressIndicator';
 import '../styles/Lesson.css';
-import { getLesson, getModule, getLessons, completeLesson, markLessonAsViewed } from '../utils/api';
+import { getLesson, getModule, getLessons, markLessonAsViewed } from '../utils/api';
 import Button from '../components/Button';
 
 const Lesson = ({ showToast }) => {
@@ -79,21 +79,15 @@ const Lesson = ({ showToast }) => {
       // Если есть следующий урок, переходим к нему
       if (currentLessonIndex < lessons.length - 1) {
         const nextLesson = lessons[currentLessonIndex + 1];
-        if (!nextLesson.isLocked) {
+        setTimeout(() => {
           navigate(`/modules/${moduleId}/lessons/${nextLesson.id}`);
-        }
+        }, 1500);
       }
     } catch (err) {
       console.error('Error marking lesson as viewed:', err);
       showToast && showToast('Ошибка при отметке урока', 'error');
     } finally {
       setCompleting(false);
-    }
-  };
-  
-  const navigateToLesson = (index) => {
-    if (index >= 0 && index < lessons.length && !lessons[index].isLocked) {
-      navigate(`/modules/${moduleId}/lessons/${lessons[index].id}`);
     }
   };
   
@@ -106,7 +100,7 @@ const Lesson = ({ showToast }) => {
     );
   }
   
-  if (error || !lesson || !module) {
+  if (error || !lesson) {
     return (
       <div className="lesson-error">
         <h2>Ошибка</h2>
@@ -188,79 +182,51 @@ const Lesson = ({ showToast }) => {
               </div>
               
               <div className="lesson-sidebar">
-                <div className="lesson-module-info">
-                  <h3 className="lesson-sidebar-title">О модуле</h3>
-                  <div className="lesson-module-title">{module.title}</div>
-                  <div className="lesson-module-meta">
-                    <div className="lesson-module-meta-item">
-                      <BookOpen size={14} />
-                      <span>{lessons.length} уроков</span>
-                    </div>
-                    {module.duration && (
-                      <div className="lesson-module-meta-item">
-                        <Clock size={14} />
-                        <span>{module.duration}</span>
-                      </div>
+                <div className="lesson-navigation-sidebar">
+                  <h3 className="lesson-sidebar-title">Навигация по урокам</h3>
+                  
+                  <div className="lesson-navigation-links">
+                    {prevLesson && (
+                      <Link 
+                        to={`/modules/${moduleId}/lessons/${prevLesson.id}`}
+                        className="lesson-navigation-link lesson-prev-link"
+                      >
+                        <ArrowLeft size={16} />
+                        <div className="lesson-navigation-link-content">
+                          <span className="lesson-navigation-link-label">Предыдущий урок</span>
+                          <span className="lesson-navigation-link-title">{prevLesson.title}</span>
+                        </div>
+                      </Link>
+                    )}
+                    
+                    {nextLesson && (
+                      <Link 
+                        to={`/modules/${moduleId}/lessons/${nextLesson.id}`}
+                        className="lesson-navigation-link lesson-next-link"
+                      >
+                        <div className="lesson-navigation-link-content">
+                          <span className="lesson-navigation-link-label">Следующий урок</span>
+                          <span className="lesson-navigation-link-title">{nextLesson.title}</span>
+                        </div>
+                        <ArrowRight size={16} />
+                      </Link>
                     )}
                   </div>
                 </div>
                 
-                <div className="lesson-navigation-sidebar">
-                  <h3 className="lesson-sidebar-title">Навигация по урокам</h3>
-                  <div className="lesson-navigation-buttons">
-                    <button 
-                      className="lesson-nav-button lesson-prev-button"
-                      disabled={!prevLesson || prevLesson.isLocked}
-                      onClick={() => navigateToLesson(currentLessonIndex - 1)}
-                    >
-                      <ArrowLeft size={16} />
-                      <span>Предыдущий</span>
-                    </button>
-                    
-                    <button 
-                      className="lesson-nav-button lesson-next-button"
-                      disabled={!nextLesson || nextLesson.isLocked}
-                      onClick={() => navigateToLesson(currentLessonIndex + 1)}
-                    >
-                      <span>Следующий</span>
-                      <ArrowRight size={16} />
-                    </button>
+                {module && (
+                  <div className="lesson-module-info">
+                    <h3 className="lesson-sidebar-title">О модуле</h3>
+                    <div className="lesson-module-card">
+                      <h4 className="lesson-module-title">{module.title}</h4>
+                      <p className="lesson-module-description">{module.description}</p>
+                      <Link to={`/modules/${moduleId}`} className="lesson-module-link">
+                        <BookOpen size={16} />
+                        <span>Все уроки модуля</span>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="lesson-list-sidebar">
-                  <h3 className="lesson-sidebar-title">Уроки модуля</h3>
-                  <ul className="lesson-list">
-                    {lessons.map((item, index) => (
-                      <li 
-                        key={item.id} 
-                        className={`lesson-list-item ${item.id === lessonId ? 'lesson-list-item-active' : ''} ${item.isCompleted ? 'lesson-list-item-completed' : ''} ${item.isLocked ? 'lesson-list-item-locked' : ''}`}
-                      >
-                        <div className="lesson-list-item-number">{index + 1}</div>
-                        <div className="lesson-list-item-content">
-                          <div className="lesson-list-item-title">
-                            {item.isLocked ? (
-                              <span>{item.title}</span>
-                            ) : (
-                              <Link to={`/modules/${moduleId}/lessons/${item.id}`}>
-                                {item.title}
-                              </Link>
-                            )}
-                          </div>
-                          {item.duration && (
-                            <div className="lesson-list-item-duration">
-                              <Clock size={12} />
-                              <span>{item.duration}</span>
-                            </div>
-                          )}
-                        </div>
-                        <div className="lesson-list-item-status">
-                          {item.isCompleted && <Check size={14} className="lesson-completed-icon" />}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                )}
               </div>
             </div>
           </AnimatedElement>
