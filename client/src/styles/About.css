@@ -251,9 +251,9 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: url('/images/pattern-dots.svg');
-  background-size: 20px;
-  opacity: 0.1;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.5;
 }
 
 .about-hero-content {
