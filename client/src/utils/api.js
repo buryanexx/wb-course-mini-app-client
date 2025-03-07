@@ -2,9 +2,10 @@
 // import { getModules, getModuleById, submitFeedback } from '../api/api';
 import axios from 'axios';
 import { modules } from '../data/mockData';
+import { showTelegramPopup, isRunningInTelegram } from './telegram';
 
 // Базовый URL API
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://wb-reshenie-api.vercel.app/api';
 
 // Создание экземпляра axios с базовым URL
 const api = axios.create({
@@ -32,93 +33,102 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Функции для работы с API
 
 /**
- * Получение списка всех модулей
- * @returns {Promise<Array>} Массив модулей
+ * Базовая функция для выполнения API запросов
+ * @param {string} endpoint - Конечная точка API
+ * @param {Object} options - Опции запроса
+ * @returns {Promise<any>} - Результат запроса
  */
-export const fetchModules = async () => {
+const fetchAPI = async (endpoint, options = {}) => {
   try {
-    // Имитация задержки сетевого запроса
-    await delay(800);
+    const url = `${API_BASE_URL}${endpoint}`;
     
-    // Возвращаем копию данных, чтобы избежать мутаций
-    return JSON.parse(JSON.stringify(modules));
+    const defaultOptions = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    
+    const response = await fetch(url, { ...defaultOptions, ...options });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `API request failed with status ${response.status}`);
+    }
+    
+    return await response.json();
   } catch (error) {
-    console.error('Error fetching modules:', error);
+    console.error(`API Error (${endpoint}):`, error);
+    
+    // Показываем уведомление в Telegram, если приложение запущено в Telegram
+    if (isRunningInTelegram()) {
+      showTelegramPopup(`Ошибка при загрузке данных: ${error.message}`);
+    }
+    
     throw error;
   }
+};
+
+/**
+ * Получение списка всех модулей
+ * @returns {Promise<Array>} - Список модулей
+ */
+export const getModules = () => {
+  return fetchAPI('/modules');
 };
 
 /**
  * Получение информации о конкретном модуле
- * @param {number|string} moduleId ID модуля
- * @returns {Promise<Object>} Данные модуля
+ * @param {number} moduleId - ID модуля
+ * @returns {Promise<Object>} - Данные модуля
  */
-export const fetchModuleById = async (moduleId) => {
-  try {
-    await delay(600);
-    
-    const module = modules.find(m => m.id === parseInt(moduleId));
-    
-    if (!module) {
-      throw new Error(`Module with ID ${moduleId} not found`);
-    }
-    
-    return JSON.parse(JSON.stringify(module));
-  } catch (error) {
-    console.error(`Error fetching module ${moduleId}:`, error);
-    throw error;
-  }
+export const getModule = (moduleId) => {
+  return fetchAPI(`/modules/${moduleId}`);
 };
 
 /**
  * Получение списка уроков для модуля
- * @param {number|string} moduleId ID модуля
- * @returns {Promise<Array>} Массив уроков
+ * @param {number} moduleId - ID модуля
+ * @returns {Promise<Array>} - Список уроков
  */
-export const fetchLessons = async (moduleId) => {
-  try {
-    await delay(500);
-    
-    const module = modules.find(m => m.id === parseInt(moduleId));
-    
-    if (!module) {
-      throw new Error(`Module with ID ${moduleId} not found`);
-    }
-    
-    return JSON.parse(JSON.stringify(module.lessons));
-  } catch (error) {
-    console.error(`Error fetching lessons for module ${moduleId}:`, error);
-    throw error;
-  }
+export const getLessons = (moduleId) => {
+  return fetchAPI(`/modules/${moduleId}/lessons`);
 };
 
 /**
  * Получение информации о конкретном уроке
- * @param {number|string} moduleId ID модуля
- * @param {number|string} lessonId ID урока
- * @returns {Promise<Object>} Данные урока
+ * @param {number} moduleId - ID модуля
+ * @param {number} lessonId - ID урока
+ * @returns {Promise<Object>} - Данные урока
  */
-export const fetchLessonById = async (moduleId, lessonId) => {
-  try {
-    await delay(400);
-    
-    const module = modules.find(m => m.id === parseInt(moduleId));
-    
-    if (!module) {
-      throw new Error(`Module with ID ${moduleId} not found`);
-    }
-    
-    const lesson = module.lessons.find(l => l.id === parseInt(lessonId));
-    
-    if (!lesson) {
-      throw new Error(`Lesson with ID ${lessonId} not found in module ${moduleId}`);
-    }
-    
-    return JSON.parse(JSON.stringify(lesson));
-  } catch (error) {
-    console.error(`Error fetching lesson ${lessonId} from module ${moduleId}:`, error);
-    throw error;
-  }
+export const getLesson = (moduleId, lessonId) => {
+  return fetchAPI(`/modules/${moduleId}/lessons/${lessonId}`);
+};
+
+/**
+ * Получение категорий базы знаний
+ * @returns {Promise<Array>} - Список категорий
+ */
+export const getKnowledgeCategories = () => {
+  return fetchAPI('/knowledge/categories');
+};
+
+/**
+ * Получение статей для категории
+ * @param {string} categoryId - ID категории
+ * @returns {Promise<Array>} - Список статей
+ */
+export const getCategoryArticles = (categoryId) => {
+  return fetchAPI(`/knowledge/categories/${categoryId}/articles`);
+};
+
+/**
+ * Получение информации о конкретной статье
+ * @param {string} categoryId - ID категории
+ * @param {string} articleId - ID статьи
+ * @returns {Promise<Object>} - Данные статьи
+ */
+export const getArticle = (categoryId, articleId) => {
+  return fetchAPI(`/knowledge/categories/${categoryId}/articles/${articleId}`);
 };
 
 /**
@@ -197,46 +207,6 @@ export const completeLesson = async (moduleId, lessonId) => {
 /**
  * Получение списка всех категорий знаний
  * @returns {Promise<Array>} Массив категорий
- */
-export const fetchKnowledgeCategories = async () => {
-  try {
-    // Имитация задержки сетевого запроса
-    await delay(600);
-    
-    // Возвращаем категории знаний
-    return [
-      {
-        id: 1,
-        title: "Базовый уровень",
-        description: "Для новичков на Wildberries",
-        icon: "book-open",
-        color: "#4CAF50"
-      },
-      {
-        id: 2,
-        title: "Продвинутый уровень",
-        description: "Для действующих продавцов",
-        icon: "trending-up",
-        color: "#2196F3"
-      },
-      {
-        id: 3,
-        title: "Экспертный уровень",
-        description: "Фокус на рекламных инструментах",
-        icon: "award",
-        color: "#9C27B0"
-      }
-    ];
-  } catch (error) {
-    console.error('Error fetching knowledge categories:', error);
-    throw error;
-  }
-};
-
-/**
- * Получение статей для определенной категории
- * @param {number} categoryId ID категории
- * @returns {Promise<Array>} Массив статей
  */
 export const fetchArticlesByCategory = async (categoryId) => {
   try {
@@ -339,22 +309,18 @@ export const markArticleAsRead = async (articleId) => {
 };
 
 // Алиасы для обратной совместимости
-export const getModules = fetchModules;
-export const getModuleById = fetchModuleById;
-export const getModule = fetchModuleById;
-export const getLesson = fetchLessonById;
-export const getLessons = fetchLessons;
+export const getModuleById = getModule;
 export { sendFeedback as submitFeedback };
 
 export default {
-  fetchModules,
-  fetchModuleById,
-  fetchLessons,
-  fetchLessonById,
-  markLessonAsViewed,
   getModules,
-  getModuleById,
   getModule,
+  getLessons,
   getLesson,
-  getLessons
+  getKnowledgeCategories,
+  getCategoryArticles,
+  getArticle,
+  markLessonAsViewed,
+  completeLesson,
+  sendFeedback
 };
