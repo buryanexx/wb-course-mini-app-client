@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, CheckSquare, FileText, TrendingUp } from 'react-feather';
+import { DollarSign, TrendingUp, CheckSquare, FileText } from 'react-feather';
 import AdaptiveContainer from '../components/AdaptiveContainer';
 import AnimatedElement from '../components/AnimatedElement';
 import '../styles/Tools.css';
@@ -11,7 +11,7 @@ const Tools = () => {
       id: 1,
       title: "Калькулятор маржинальности",
       description: "Рассчитайте прибыльность вашего товара с учетом всех комиссий и затрат",
-      icon: <Calculator size={32} />,
+      icon: <DollarSign size={32} />,
       path: "/tools/margin-calculator",
       color: "#4CAF50"
     },

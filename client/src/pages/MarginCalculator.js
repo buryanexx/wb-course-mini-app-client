@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, HelpCircle, Save, Share2 } from 'react-feather';
+import { ArrowLeft, HelpCircle, Save, Share2, DollarSign } from 'react-feather';
 import AdaptiveContainer from '../components/AdaptiveContainer';
 import AnimatedElement from '../components/AnimatedElement';
 import Button from '../components/Button';

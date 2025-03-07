@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Book, Database, Tool, Info, X } from 'react-feather';
+import { Home, Book, Database, Settings, Info, X } from 'react-feather';
 import '../styles/Menu.css';
 
 const Menu = ({ isOpen, toggleMenu }) => {
@@ -10,7 +10,7 @@ const Menu = ({ isOpen, toggleMenu }) => {
     { path: '/', label: 'Главная', icon: <Home size={20} /> },
     { path: '/modules', label: 'Модули', icon: <Book size={20} /> },
     { path: '/knowledge', label: 'База знаний', icon: <Database size={20} /> },
-    { path: '/tools', label: 'Инструменты', icon: <Tool size={20} /> },
+    { path: '/tools', label: 'Инструменты', icon: <Settings size={20} /> },
     { path: '/about', label: 'О курсе', icon: <Info size={20} /> }
   ];
   
