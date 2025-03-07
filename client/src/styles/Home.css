@@ -71,7 +71,7 @@
     right: 0;
     bottom: 0;
     width: 50%;
-    background-image: url('/images/hero-pattern.svg');
+    background-image: url('../images/hero-pattern.svg');
     background-size: cover;
     opacity: 0.1;
   }
