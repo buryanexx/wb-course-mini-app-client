@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Book, Clock, Award, Users } from 'react-feather';
+import { ArrowLeft, Book, Clock, Award, Users, Check } from 'react-feather';
 import AdaptiveContainer from '../components/AdaptiveContainer';
 import LessonCard from '../components/LessonCard';
 import PremiumButton from '../components/PremiumButton';

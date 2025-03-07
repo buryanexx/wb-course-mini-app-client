@@ -135,11 +135,11 @@ export const completeLesson = async (moduleId, lessonId) => {
 };
 
 // Алиасы для обратной совместимости
-export const getModules = fetchModules;
-export const getModuleById = fetchModuleById;
-export const getModule = fetchModuleById;
-export const getLesson = fetchLessonById;
-export const getLessons = fetchLessons;
-export const submitFeedback = sendFeedback;
+export { fetchModules as getModules };
+export { fetchModuleById as getModuleById };
+export { fetchModuleById as getModule };
+export { fetchLessonById as getLesson };
+export { fetchLessons as getLessons };
+export { sendFeedback as submitFeedback };
 
 export default api;

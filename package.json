@@ -17,8 +17,9 @@
     },
     "scripts": {
       "start": "react-scripts start",
-      "build": "react-scripts build",
-      "build:minimal": "cp src/App.minimal.js src/App.js.bak && cp src/App.minimal.js src/App.js && react-scripts build && mv src/App.js.bak src/App.js",
+      "build": "npm run build:minimal",
+      "build:full": "react-scripts build",
+      "build:minimal": "cp src/App.js src/App.js.bak && cp src/App.minimal.js src/App.js && react-scripts build && mv src/App.js.bak src/App.js",
       "test": "react-scripts test",
       "eject": "react-scripts eject"
     },
