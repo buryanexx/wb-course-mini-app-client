@@ -5,8 +5,13 @@ import ModuleCard from '../components/ModuleCard';
 import AnimatedElement from '../components/AnimatedElement';
 import '../styles/Modules.css';
 import { getModules } from '../utils/api';
+import { Link } from 'react-router-dom';
+import { Book, ChevronRight, Award } from 'react-feather';
+import Card from '../components/Card';
+import Button from '../components/Button';
+import StatGroup from '../components/StatGroup';
 
-const Modules = () => {
+const Modules = ({ showToast }) => {
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,15 +31,16 @@ const Modules = () => {
         setModules(data);
         setError(null);
       } catch (err) {
-        setError('Не удалось загрузить модули. Пожалуйста, попробуйте позже.');
         console.error('Error fetching modules:', err);
+        setError('Не удалось загрузить модули. Пожалуйста, попробуйте позже.');
+        showToast && showToast('Ошибка при загрузке модулей', 'error');
       } finally {
         setLoading(false);
       }
     };
     
     fetchModules();
-  }, []);
+  }, [showToast]);
   
   const filteredModules = modules.filter(module => {
     const matchesSearch = module.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -56,6 +62,61 @@ const Modules = () => {
     setViewMode(viewMode === 'grid' ? 'list' : 'grid');
   };
   
+  if (loading) {
+    return (
+      <div className="modules-page">
+        <div className="modules-loading">
+          <div className="loader"></div>
+          <p>Загрузка модулей...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="modules-page">
+        <div className="modules-error">
+          <h2>Ошибка</h2>
+          <p>{error}</p>
+          <Button 
+            variant="primary" 
+            onClick={() => window.location.reload()}
+          >
+            Попробовать снова
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Расчет статистики
+  const totalModules = modules.length;
+  const totalLessons = modules.reduce((sum, module) => sum + module.lessons.length, 0);
+  const completedLessons = modules.reduce((sum, module) => 
+    sum + module.lessons.filter(lesson => lesson.completed).length, 0);
+  const completionRate = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+
+  const stats = [
+    {
+      title: 'Всего модулей',
+      value: totalModules,
+      icon: <Book size={20} />
+    },
+    {
+      title: 'Всего уроков',
+      value: totalLessons,
+      icon: <Book size={20} />
+    },
+    {
+      title: 'Пройдено уроков',
+      value: completedLessons,
+      icon: <Award size={20} />,
+      change: `${completionRate}%`,
+      changeType: 'positive'
+    }
+  ];
+
   return (
     <div className="modules-page">
       <section className="modules-hero">
@@ -108,16 +169,11 @@ const Modules = () => {
             </div>
           </div>
           
-          {loading ? (
-            <div className="modules-loading">
-              <div className="loader"></div>
-              <p>Загрузка модулей...</p>
-            </div>
-          ) : error ? (
-            <div className="modules-error">
-              <p>{error}</p>
-            </div>
-          ) : filteredModules.length === 0 ? (
+          <div className="modules-stats">
+            <StatGroup stats={stats} columns={3} />
+          </div>
+          
+          {filteredModules.length === 0 ? (
             <div className="modules-empty">
               <p>Модули не найдены. Попробуйте изменить параметры поиска.</p>
             </div>
@@ -129,7 +185,36 @@ const Modules = () => {
                   animation="fade-up"
                   delay={index * 0.1}
                 >
-                  <ModuleCard {...module} />
+                  <Card
+                    title={`${index + 1}. ${module.title}`}
+                    description={module.description}
+                    icon={<Book size={24} />}
+                    footer={
+                      <div className="module-card-footer">
+                        <div className="module-card-progress">
+                          <div className="module-card-progress-bar">
+                            <div 
+                              className="module-card-progress-fill" 
+                              style={{ width: `${module.progress}%` }}
+                            ></div>
+                          </div>
+                          <span className="module-card-progress-text">
+                            {module.completedLessons}/{module.totalLessons} уроков ({module.progress}%)
+                          </span>
+                        </div>
+                        <Button 
+                          variant="primary" 
+                          as={Link} 
+                          to={`/modules/${module.id}`}
+                          icon={<ChevronRight size={16} />}
+                          iconPosition="right"
+                        >
+                          Перейти к модулю
+                        </Button>
+                      </div>
+                    }
+                    className="module-card"
+                  />
                 </AnimatedElement>
               ))}
             </div>

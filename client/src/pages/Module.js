@@ -10,7 +10,7 @@ import ProgressIndicator from '../components/ProgressIndicator';
 import '../styles/Module.css';
 import { getModule, getLessons } from '../utils/api';
 
-const Module = () => {
+const Module = ({ showToast }) => {
   const { moduleId } = useParams();
   const [module, setModule] = useState(null);
   const [lessons, setLessons] = useState([]);
@@ -28,15 +28,16 @@ const Module = () => {
         setLessons(lessonsData);
         setError(null);
       } catch (err) {
-        setError('Не удалось загрузить данные модуля. Пожалуйста, попробуйте позже.');
-        console.error('Error fetching module data:', err);
+        console.error('Error fetching module:', err);
+        setError('Не удалось загрузить модуль. Пожалуйста, попробуйте позже.');
+        showToast && showToast('Ошибка при загрузке модуля', 'error');
       } finally {
         setLoading(false);
       }
     };
     
     fetchModuleData();
-  }, [moduleId]);
+  }, [moduleId, showToast]);
   
   if (loading) {
     return (
@@ -50,6 +51,7 @@ const Module = () => {
   if (error || !module) {
     return (
       <div className="module-error">
+        <h2>Ошибка</h2>
         <p>{error || 'Модуль не найден'}</p>
         <Link to="/modules" className="module-back-link">
           Вернуться к списку модулей

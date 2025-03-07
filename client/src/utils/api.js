@@ -112,5 +112,6 @@ export const markLessonAsViewed = async (moduleId, lessonId) => {
 export { fetchModules as getModules };
 export { fetchModuleById as getModuleById };
 export { sendFeedback as submitFeedback };
+export { fetchModuleById as getModule };
 
 export default api;

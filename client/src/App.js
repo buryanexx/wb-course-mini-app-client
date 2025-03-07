@@ -58,6 +58,7 @@ const App = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
     localStorage.setItem('darkMode', newDarkMode);
+    document.documentElement.classList.toggle('dark-mode');
   };
   
   const addToast = (toast) => {

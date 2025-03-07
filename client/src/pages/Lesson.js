@@ -6,9 +6,10 @@ import PremiumButton from '../components/PremiumButton';
 import AnimatedElement from '../components/AnimatedElement';
 import ProgressIndicator from '../components/ProgressIndicator';
 import '../styles/Lesson.css';
-import { getLesson, getModule, getLessons, completeLesson } from '../utils/api';
+import { getLesson, getModule, getLessons, completeLesson, markLessonAsViewed } from '../utils/api';
+import Button from '../components/Button';
 
-const Lesson = () => {
+const Lesson = ({ showToast }) => {
   const { moduleId, lessonId } = useParams();
   const navigate = useNavigate();
   const [lesson, setLesson] = useState(null);
@@ -17,6 +18,7 @@ const Lesson = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+  const [completing, setCompleting] = useState(false);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -40,17 +42,24 @@ const Lesson = () => {
       } catch (err) {
         setError('Не удалось загрузить урок. Пожалуйста, попробуйте позже.');
         console.error('Error fetching lesson data:', err);
+        showToast && showToast('Ошибка при загрузке урока', 'error');
       } finally {
         setLoading(false);
       }
     };
     
     fetchData();
-  }, [moduleId, lessonId]);
+  }, [moduleId, lessonId, showToast]);
   
   const handleCompleteLesson = async () => {
     try {
-      await completeLesson(moduleId, lessonId);
+      setCompleting(true);
+      await markLessonAsViewed(moduleId, lessonId);
+      showToast && showToast('Урок отмечен как просмотренный', 'success');
+      
+      // Обновляем данные урока
+      const updatedLesson = await getLesson(moduleId, lessonId);
+      setLesson(updatedLesson);
       
       // Обновляем состояние урока
       setLesson(prev => ({
@@ -75,7 +84,10 @@ const Lesson = () => {
         }
       }
     } catch (err) {
-      console.error('Error completing lesson:', err);
+      console.error('Error marking lesson as viewed:', err);
+      showToast && showToast('Ошибка при отметке урока', 'error');
+    } finally {
+      setCompleting(false);
     }
   };
   
@@ -97,10 +109,16 @@ const Lesson = () => {
   if (error || !lesson || !module) {
     return (
       <div className="lesson-error">
+        <h2>Ошибка</h2>
         <p>{error || 'Урок не найден'}</p>
-        <Link to={`/modules/${moduleId}`} className="lesson-back-link">
+        <Button 
+          variant="primary" 
+          as={Link} 
+          to={`/modules/${moduleId}`}
+          icon={<ArrowLeft size={16} />}
+        >
           Вернуться к модулю
-        </Link>
+        </Button>
       </div>
     );
   }
@@ -152,14 +170,14 @@ const Lesson = () => {
                 
                 <div className="lesson-actions">
                   {!lesson.isCompleted ? (
-                    <PremiumButton 
+                    <Button 
+                      variant="primary" 
                       onClick={handleCompleteLesson}
-                      variant="gradient"
-                      size="large"
-                      icon={<Check size={18} />}
+                      icon={<Check size={16} />}
+                      disabled={completing}
                     >
-                      Завершить урок
-                    </PremiumButton>
+                      {completing ? 'Отмечаем...' : 'Отметить просмотренным'}
+                    </Button>
                   ) : (
                     <div className="lesson-completed-message">
                       <Check size={18} />

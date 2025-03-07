@@ -1,33 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './styles/App.css';
 
-function MinimalApp() {
-  useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      tg.expand();
-    }
-  }, []);
-
+function App() {
   return (
     <div className="app">
-      <header className="header">
-        <div className="header-container">
-          <h1>WB Решение</h1>
-        </div>
+      <header className="app-header">
+        <h1>WB Курс</h1>
+        <p>Минимальная версия приложения для деплоя</p>
       </header>
-      <main className="main-content">
-        <h2>Добро пожаловать в WB Решение!</h2>
-        <p>Это минимальная версия приложения для тестирования.</p>
+      <main className="app-content">
+        <p>Приложение успешно развернуто!</p>
       </main>
-      <footer className="footer">
-        <div className="footer-container">
-          <div className="copyright">© {new Date().getFullYear()} WB Решение. Все права защищены.</div>
-        </div>
-      </footer>
     </div>
   );
 }
 
-export default MinimalApp; 
+export default App; 
