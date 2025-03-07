@@ -441,3 +441,12 @@ a:hover {
     max-width: none;
   }
 }
+
+.main-content.has-bottom-nav {
+  padding-bottom: 70px; /* Высота нижнего меню + отступ */
+}
+
+.interactive-element {
+  min-height: 44px;
+  min-width: 44px;
+}

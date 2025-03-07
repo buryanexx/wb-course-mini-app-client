@@ -7,30 +7,34 @@
  */
 export const initTelegramApp = () => {
   if (window.Telegram && window.Telegram.WebApp) {
-    const tg = window.Telegram.WebApp;
+    // Расширяем на весь экран
+    window.Telegram.WebApp.expand();
     
-    // Сообщаем Telegram, что приложение готово
-    tg.ready();
-    
-    // Расширяем приложение на весь экран
-    tg.expand();
-    
-    // Устанавливаем тему
-    const isDarkMode = tg.colorScheme === 'dark';
-    document.body.classList.toggle('dark-theme', isDarkMode);
-    localStorage.setItem('darkMode', isDarkMode);
-    
-    // Добавляем обработчик изменения темы
-    tg.onEvent('themeChanged', () => {
-      const newDarkMode = tg.colorScheme === 'dark';
-      document.body.classList.toggle('dark-theme', newDarkMode);
-      localStorage.setItem('darkMode', newDarkMode);
+    // Устанавливаем цвет основной кнопки
+    window.Telegram.WebApp.MainButton.setParams({
+      text: 'Открыть',
+      color: '#7B68EE',
+      text_color: '#ffffff',
+      is_active: true,
+      is_visible: false
     });
     
-    return tg;
+    // Устанавливаем цвет темы
+    const colorScheme = window.Telegram.WebApp.colorScheme;
+    if (colorScheme === 'dark') {
+      document.body.classList.add('dark-theme');
+    }
+    
+    // Сохраняем данные пользователя
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+    if (user) {
+      localStorage.setItem('telegramUser', JSON.stringify(user));
+    }
+    
+    console.log('Telegram WebApp initialized successfully');
+  } else {
+    console.log('Telegram WebApp is not available');
   }
-  
-  return null;
 };
 
 /**
@@ -51,35 +55,73 @@ export const openTelegramLink = (url) => {
 };
 
 /**
- * Получение данных пользователя из Telegram
- * @returns {Object|null} Данные пользователя или null, если не доступны
+ * Получение данных пользователя Telegram
+ * @returns {Object|null} Данные пользователя или null
  */
 export const getTelegramUser = () => {
   if (window.Telegram && window.Telegram.WebApp) {
-    const tg = window.Telegram.WebApp;
-    
-    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-      return tg.initDataUnsafe.user;
-    }
+    return window.Telegram.WebApp.initDataUnsafe?.user || null;
   }
   
-  return null;
+  const savedUser = localStorage.getItem('telegramUser');
+  return savedUser ? JSON.parse(savedUser) : null;
+};
+
+/**
+ * Показать основную кнопку Telegram
+ * @param {string} text Текст кнопки
+ * @param {Function} onClick Функция, вызываемая при нажатии
+ */
+export const showMainButton = (text, onClick) => {
+  if (window.Telegram && window.Telegram.WebApp) {
+    const mainButton = window.Telegram.WebApp.MainButton;
+    
+    mainButton.setText(text);
+    mainButton.show();
+    mainButton.onClick(onClick);
+  }
+};
+
+/**
+ * Скрыть основную кнопку Telegram
+ */
+export const hideMainButton = () => {
+  if (window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.MainButton.hide();
+    window.Telegram.WebApp.MainButton.offClick();
+  }
+};
+
+/**
+ * Поделиться контентом через Telegram
+ * @param {string} text Текст для шаринга
+ */
+export const shareViaTelegram = (text) => {
+  if (window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(text)}`);
+  }
 };
 
 /**
  * Показать всплывающее уведомление в Telegram
  * @param {string} message Текст уведомления
  */
-export const showTelegramAlert = (message) => {
+export const showTelegramPopup = (message) => {
   if (window.Telegram && window.Telegram.WebApp) {
-    const tg = window.Telegram.WebApp;
-    
-    tg.showPopup({
-      title: 'Уведомление',
+    window.Telegram.WebApp.showPopup({
+      title: 'WB Решение',
       message,
-      buttons: [{ type: 'ok' }]
+      buttons: [{ type: 'close' }]
     });
   }
+};
+
+/**
+ * Проверка, запущено ли приложение в Telegram
+ * @returns {boolean} true, если приложение запущено в Telegram
+ */
+export const isRunningInTelegram = () => {
+  return Boolean(window.Telegram && window.Telegram.WebApp);
 };
 
 /**
@@ -96,6 +138,10 @@ export default {
   initTelegramApp,
   openTelegramLink,
   getTelegramUser,
-  showTelegramAlert,
+  showMainButton,
+  hideMainButton,
+  shareViaTelegram,
+  showTelegramPopup,
+  isRunningInTelegram,
   closeTelegramApp
 }; 

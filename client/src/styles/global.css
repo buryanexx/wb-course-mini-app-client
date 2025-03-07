@@ -12,8 +12,8 @@
   --color-surface: #F8F9FA;
   --color-border: #E1E4E8;
   --color-text-primary: #212529;
-  --color-text-secondary: #6C757D;
-  --color-text-tertiary: #ADB5BD;
+  --color-text-secondary: rgba(0, 0, 0, 0.75);
+  --color-text-tertiary: rgba(0, 0, 0, 0.6);
   
   /* Функциональные цвета */
   --color-success: #28A745;
@@ -69,8 +69,8 @@
   --color-surface: #1E1E1E;
   --color-border: #333333;
   --color-text-primary: #F8F9FA;
-  --color-text-secondary: #ADB5BD;
-  --color-text-tertiary: #6C757D;
+  --color-text-secondary: rgba(255, 255, 255, 0.85);
+  --color-text-tertiary: rgba(255, 255, 255, 0.7);
   
   --color-primary: #9F91F2;
   --color-primary-light: #B3A8F5;
@@ -323,4 +323,28 @@ img {
 
 .text-accent {
   color: var(--secondary-color);
+}
+
+/* Улучшение интерактивных элементов */
+button, 
+a, 
+input, 
+select, 
+textarea {
+  transition: transform 0.2s, background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+button:active, 
+a:active {
+  transform: scale(0.98);
+}
+
+/* Фокус для доступности */
+button:focus-visible, 
+a:focus-visible, 
+input:focus-visible, 
+select:focus-visible, 
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

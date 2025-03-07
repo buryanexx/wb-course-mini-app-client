@@ -8,6 +8,7 @@ import AnimatedElement from '../components/AnimatedElement';
 import Button from '../components/Button';
 import '../styles/Home.css';
 import { getModules } from '../utils/api';
+import Carousel from '../components/Carousel';
 
 const Home = ({ addToast }) => {
   const [featuredModules, setFeaturedModules] = useState([]);
@@ -34,6 +35,30 @@ const Home = ({ addToast }) => {
     
     fetchFeaturedModules();
   }, [addToast]);
+  
+  const featuredItems = [
+    {
+      id: 1,
+      title: "Как увеличить продажи на Wildberries",
+      description: "Практические советы и стратегии для роста продаж",
+      image: "/images/featured-1.jpg",
+      link: "/knowledge/marketing/article/increase-sales"
+    },
+    {
+      id: 2,
+      title: "Новые правила работы с маркетплейсом",
+      description: "Обзор последних изменений в правилах Wildberries",
+      image: "/images/featured-2.jpg",
+      link: "/knowledge/rules/article/new-rules-2023"
+    },
+    {
+      id: 3,
+      title: "Оптимизация карточек товаров",
+      description: "Как правильно оформить карточку товара для максимальных продаж",
+      image: "/images/featured-3.jpg",
+      link: "/knowledge/product/article/card-optimization"
+    }
+  ];
   
   return (
     <div className="home-page">
@@ -148,6 +173,24 @@ const Home = ({ addToast }) => {
             </div>
           </AnimatedElement>
         </AdaptiveContainer>
+      </section>
+      
+      {/* Home Featured Section */}
+      <section className="home-featured">
+        <h2 className="section-title">Популярные материалы</h2>
+        <Carousel
+          items={featuredItems}
+          renderItem={(item) => (
+            <div className="featured-item">
+              <div className="featured-image" style={{ backgroundImage: `url(${item.image || '/images/placeholder.jpg'})` }}></div>
+              <div className="featured-content">
+                <h3 className="featured-title">{item.title}</h3>
+                <p className="featured-description">{item.description}</p>
+                <Link to={item.link} className="featured-link">Читать подробнее</Link>
+              </div>
+            </div>
+          )}
+        />
       </section>
       
       {/* CTA Section */}

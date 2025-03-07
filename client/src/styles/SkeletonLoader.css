@@ -1,0 +1,88 @@
+.skeleton-container {
+  width: 100%;
+}
+
+.skeleton-wrapper {
+  margin-bottom: var(--spacing-md);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.skeleton-item {
+  background: linear-gradient(90deg, 
+    var(--color-skeleton-start) 0%, 
+    var(--color-skeleton-middle) 50%, 
+    var(--color-skeleton-start) 100%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 70%;
+  margin-bottom: var(--spacing-md);
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+}
+
+.skeleton-text-short {
+  height: 16px;
+  width: 60%;
+  margin-bottom: var(--spacing-sm);
+}
+
+.skeleton-tags {
+  height: 24px;
+  width: 80%;
+  margin-top: var(--spacing-md);
+}
+
+.skeleton-icon {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  margin-bottom: var(--spacing-md);
+}
+
+.skeleton-progress {
+  height: 8px;
+  width: 100%;
+  margin-top: var(--spacing-md);
+  border-radius: var(--radius-full);
+}
+
+.skeleton-article {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-module {
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+:root {
+  --color-skeleton-start: rgba(0, 0, 0, 0.05);
+  --color-skeleton-middle: rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme {
+  --color-skeleton-start: rgba(255, 255, 255, 0.05);
+  --color-skeleton-middle: rgba(255, 255, 255, 0.1);
+} 

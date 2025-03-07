@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="footer-top">
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <span className="logo-text">WB Курс</span>
+              <span className="logo-text">WB Решение</span>
             </Link>
             <p className="footer-tagline">
               Ваш надежный партнер в мире маркетплейсов
@@ -26,7 +26,7 @@ const Footer = () => {
                 <li><Link to="/modules">Модули</Link></li>
                 <li><Link to="/knowledge">База знаний</Link></li>
                 <li><Link to="/tools">Инструменты</Link></li>
-                <li><Link to="/about">О курсе</Link></li>
+                <li><Link to="/about">О нас</Link></li>
               </ul>
             </div>
             
@@ -34,7 +34,7 @@ const Footer = () => {
               <h3 className="footer-links-title">Контакты</h3>
               <ul className="footer-links-list">
                 <li><a href="tel:+79001234567">+7 (900) 123-45-67</a></li>
-                <li><a href="mailto:info@wb-course.ru">info@wb-course.ru</a></li>
+                <li><a href="mailto:info@wb-reshenie.ru">info@wb-reshenie.ru</a></li>
               </ul>
             </div>
           </div>
@@ -42,7 +42,7 @@ const Footer = () => {
         
         <div className="footer-bottom">
           <div className="copyright">
-            © {currentYear} WB Курс. Все права защищены.
+            © {currentYear} WB Решение. Все права защищены.
           </div>
           
           <div className="footer-made-with">

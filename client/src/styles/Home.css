@@ -344,3 +344,63 @@
       font-size: var(--font-size-md);
     }
   }
+  
+  /* Добавить стили для карусели */
+  .home-featured {
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .featured-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .featured-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .featured-content {
+    padding: var(--spacing-lg);
+    background-color: var(--color-surface);
+    flex: 1;
+  }
+  
+  .featured-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+  }
+  
+  .featured-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .featured-link {
+    display: inline-block;
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .featured-link:hover {
+    color: var(--color-primary-dark);
+  }
+  
+  @media (max-width: 768px) {
+    .featured-image {
+      height: 150px;
+    }
+    
+    .featured-content {
+      padding: var(--spacing-md);
+    }
+  }

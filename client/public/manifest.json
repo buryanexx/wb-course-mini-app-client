@@ -1,6 +1,6 @@
 {
-  "short_name": "WB-курс",
-  "name": "Курс выхода на Wildberries",
+  "short_name": "WB Решение",
+  "name": "WB Решение - Ваш надежный партнер в мире маркетплейсов",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,31 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#007BFF",
-  "background_color": "#ffffff"
+  "theme_color": "#7B68EE",
+  "background_color": "#ffffff",
+  "description": "Обучение и инструменты для работы с маркетплейсом Wildberries",
+  "orientation": "portrait",
+  "categories": ["education", "business", "productivity"],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshot2.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web"
+    },
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=org.telegram.messenger"
+    }
+  ],
+  "prefer_related_applications": false
 }

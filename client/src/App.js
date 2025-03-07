@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MobileBottomNav from './components/MobileBottomNav';
 import Home from './pages/Home';
 import Modules from './pages/Modules';
 import Module from './pages/Module';
@@ -19,10 +20,12 @@ import './styles/global.css';
 import './styles/App.css';
 import './styles/Typography.css';
 import Toast from './components/Toast';
+import ConnectionStatus from './components/ConnectionStatus';
 
 const App = () => {
   const [toasts, setToasts] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   
   useEffect(() => {
     // Инициализация Telegram Mini App
@@ -34,6 +37,14 @@ const App = () => {
     setDarkMode(savedDarkMode || prefersDarkMode);
     
     document.body.classList.toggle('dark-theme', darkMode);
+    
+    // Отслеживание изменения размера окна
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [darkMode]);
   
   const toggleDarkMode = () => {
@@ -62,7 +73,7 @@ const App = () => {
       <div className={`app ${darkMode ? 'dark-theme' : ''}`}>
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         
-        <main className="main-content">
+        <main className={`main-content ${isMobile ? 'has-bottom-nav' : ''}`}>
           <Routes>
             <Route path="/" element={<Home addToast={addToast} />} />
             <Route path="/modules" element={<Modules addToast={addToast} />} />
@@ -80,6 +91,8 @@ const App = () => {
         
         <Footer />
         
+        {isMobile && <MobileBottomNav />}
+        
         <div className="toast-container">
           {toasts.map(toast => (
             <Toast
@@ -91,6 +104,8 @@ const App = () => {
             />
           ))}
         </div>
+        
+        <ConnectionStatus />
       </div>
     </Router>
   );

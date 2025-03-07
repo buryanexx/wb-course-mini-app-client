@@ -29,7 +29,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="header-logo">
-          <span className="logo-text">WB Курс</span>
+          <span className="logo-text">WB Решение</span>
         </Link>
         
         <nav className={`header-nav ${isMenuOpen ? 'is-open' : ''}`}>
@@ -79,7 +79,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                 to="/about" 
                 className={location.pathname === '/about' ? 'active' : ''}
               >
-                О курсе
+                О нас
               </Link>
             </li>
           </ul>
@@ -87,7 +87,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
         
         <div className="header-actions">
           <button 
-            className="header-theme-toggle" 
+            className="header-theme-toggle interactive-element" 
             onClick={toggleDarkMode}
             aria-label={darkMode ? 'Включить светлую тему' : 'Включить темную тему'}
           >
@@ -95,7 +95,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
           </button>
           
           <button 
-            className="header-menu-toggle" 
+            className="header-menu-toggle interactive-element" 
             onClick={() => setIsMenuOpen(true)}
             aria-label="Открыть меню"
           >
