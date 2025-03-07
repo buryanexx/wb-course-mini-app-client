@@ -19,10 +19,6 @@ const Modules = ({ showToast }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterLevel, setFilterLevel] = useState('all');
   
-  // Имитация прогресса обучения
-  const completedModules = 2;
-  const totalModules = 8;
-  
   useEffect(() => {
     const fetchModules = async () => {
       try {
@@ -119,13 +115,26 @@ const Modules = ({ showToast }) => {
 
   return (
     <div className="modules-page">
-      <section className="modules-hero">
+      <section className="modules-header">
         <AdaptiveContainer>
           <AnimatedElement animation="fade-up">
-            <h1 className="modules-title">Модули обучения</h1>
+            <h1 className="modules-title">Модули курса</h1>
             <p className="modules-subtitle">
-              Выберите интересующий вас модуль и начните обучение прямо сейчас
+              Изучите все модули курса и станьте экспертом в продажах на Wildberries
             </p>
+            
+            <div className="modules-progress">
+              <div className="modules-progress-bar">
+                <div 
+                  className="modules-progress-fill" 
+                  style={{ width: `${completionRate}%` }}
+                ></div>
+              </div>
+              <div className="modules-progress-text">
+                <span>Общий прогресс: {completionRate}%</span>
+                <span>{completedLessons} из {totalLessons} уроков</span>
+              </div>
+            </div>
           </AnimatedElement>
         </AdaptiveContainer>
       </section>
